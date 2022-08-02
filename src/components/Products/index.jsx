@@ -5,10 +5,13 @@ import Item from "./Item";
 
 export default function Products() {
   const data = useDataBase();
-  const date = new Date(data[0].launchAt);
-  console.log(date.getDate());
+  const today = new Date().getTime();
+  const aWeek = 1000 * 60 * 60 * 24 * 8;
   const dataSpecial = data.filter((item) => item.special === true);
   const dataBestSales = data.filter((item) => item.sales >= 200);
+  const dataNew = data.filter(
+    (item) => today - new Date(item.launchAt).getTime() <= aWeek
+  );
   const [status, setStatus] = useState("all");
   return (
     <>
@@ -57,8 +60,11 @@ export default function Products() {
               >
                 人氣推薦（{dataBestSales.length}）
               </button>
-              <button className="list-group-item list-group-item-action h4">
-                新品上市（12）
+              <button
+                onClick={() => setStatus("new")}
+                className="list-group-item list-group-item-action h4"
+              >
+                新品上市（{dataNew.length}）
               </button>
               <button className="list-group-item list-group-item-action h4 disabled">
                 絕版品
@@ -77,6 +83,10 @@ export default function Products() {
                 ))}
               {status === "bestSales" &&
                 dataBestSales.map((product) => (
+                  <Item key={product.id} item={product} />
+                ))}
+              {status === "new" &&
+                dataNew.map((product) => (
                   <Item key={product.id} item={product} />
                 ))}
               {/* <!-- 產品 End --> */}
