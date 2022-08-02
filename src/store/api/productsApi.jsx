@@ -18,16 +18,33 @@ const productsApi = createApi({
   endpoints(build) {
     return {
       // get 獲取列表
-      getProducts: build.query({
-        query() {
+      getProductsByPage: build.query({
+        query(page = 1) {
           return {
             // ?populate=* 取得 api image 屬性
-            url: `products?populate=*`, // 會與 baseUrl 拼接成 'http://localhost:1337/api/products'
+            url: `products?populate=*&pagination[page]=${page}&pagination[pageSize]=4`, // 會與 baseUrl 拼接成 'http://localhost:1337/api/products'
           }; // &pagination[page]=${page}&pagination[pageSize]=4
         },
         // transformResponse 用來轉換響應數據的格式
         transformResponse(baseQueryReturnValue) {
-          console.log(baseQueryReturnValue.meta);
+          return {
+            data: baseQueryReturnValue.data,
+            meta: baseQueryReturnValue.meta.pagination,
+          };
+          // App.js 中 useGetProductsQuery() 可直接調用 data
+        },
+        providesTags: [{ type: "products", id: "LIST" }], // 為getProducts掛上標籤，當'products'標籤失效時，會重新加載數據
+      }),
+      // get 獲取列表
+      getProducts: build.query({
+        query() {
+          return {
+            // ?populate=* 取得 api image 屬性
+            url: "products?populate=*", // 會與 baseUrl 拼接成 'http://localhost:1337/api/products'
+          }; // &pagination[page]=${page}&pagination[pageSize]=4
+        },
+        // transformResponse 用來轉換響應數據的格式
+        transformResponse(baseQueryReturnValue) {
           return {
             data: baseQueryReturnValue.data,
             meta: baseQueryReturnValue.meta.pagination,
@@ -92,6 +109,7 @@ const productsApi = createApi({
 });
 
 export const {
+  useGetProductsByPageQuery,
   useGetProductsQuery,
   useGetProductByIdQuery,
   useDelProductMutation,

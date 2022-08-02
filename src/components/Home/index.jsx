@@ -3,7 +3,7 @@ import useDataBase from "../../hooks/useDataBase";
 import HomeItem from "./HomeItem";
 
 export default function Home() {
-  const data = useDataBase();
+  const { products: data } = useDataBase();
   const dataSpecial = data.filter((item) => item.special === true);
   return (
     <div>

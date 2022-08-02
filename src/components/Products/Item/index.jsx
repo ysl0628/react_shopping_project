@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useGetProductsQuery } from "../../../store/api/productsApi";
 
 export default function Item({ item }) {
   return (

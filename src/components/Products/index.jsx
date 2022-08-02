@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
 import useDataBase from "../../hooks/useDataBase";
-import { useGetProductsQuery } from "../../store/api/productsApi";
 import Item from "./Item";
+import Pagination from "./Pagination";
+import Category from "./Category";
+import useCategory from "../../hooks/useCategory";
+import { useSelector } from "react-redux";
 
 export default function Products() {
-  const data = useDataBase();
+  const totalAmount = useSelector((state) => state.page.totalAmount);
+  const { products: dataAll } = useCategory();
+  const { products: data, page, success } = useDataBase();
   const today = new Date().getTime();
   const aWeek = 1000 * 60 * 60 * 24 * 8;
-  const dataSpecial = data.filter((item) => item.special === true);
-  const dataBestSales = data.filter((item) => item.sales >= 200);
-  const dataNew = data.filter(
+  const dataSpecial = dataAll.filter((item) => item.special === true);
+  const dataBestSales = dataAll.filter((item) => item.sales >= 200);
+  const dataNew = dataAll.filter(
     (item) => today - new Date(item.launchAt).getTime() <= aWeek
   );
   const [status, setStatus] = useState("all");
+
   return (
     <>
       <div className="container px-0 px-md-3">
@@ -37,41 +43,13 @@ export default function Products() {
 
       <section className="container my-6">
         <div className="row">
-          <div className="col-md-4 mb-5">
-            <h2 className="mb-0 py-3 text-center bg-primary text-white h4">
-              甜點類別
-            </h2>
-            <div className="list-group text-center">
-              <button
-                onClick={() => setStatus("all")}
-                className={`list-group-item list-group-item-action h4 `}
-              >
-                所有甜點（{data.length}）
-              </button>
-              <button
-                onClick={() => setStatus("special")}
-                className="list-group-item list-group-item-action h4"
-              >
-                本日精選（{dataSpecial.length}）
-              </button>
-              <button
-                onClick={() => setStatus("bestSales")}
-                className="list-group-item list-group-item-action h4"
-              >
-                人氣推薦（{dataBestSales.length}）
-              </button>
-              <button
-                onClick={() => setStatus("new")}
-                className="list-group-item list-group-item-action h4"
-              >
-                新品上市（{dataNew.length}）
-              </button>
-              <button className="list-group-item list-group-item-action h4 disabled">
-                絕版品
-              </button>
-            </div>
-          </div>
-
+          <Category
+            data={dataAll}
+            dataSpecial={dataSpecial}
+            dataBestSales={dataBestSales}
+            dataNew={dataNew}
+            onSortSetStatus={setStatus}
+          />
           <div className="col-md-8">
             <div className="row">
               {/* <!-- 產品 Start --> */}
@@ -91,38 +69,9 @@ export default function Products() {
                 ))}
               {/* <!-- 產品 End --> */}
             </div>
-
-            <nav className="mt-5" aria-label="Page navigation">
-              <ul className="pagination justify-content-center pagination-lg">
-                <li className="page-item">
-                  <a className="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span className="sr-only">Previous</span>
-                  </a>
-                </li>
-                <li className="page-item active">
-                  <a className="page-link" href="#">
-                    1
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    2
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#">
-                    3
-                  </a>
-                </li>
-                <li className="page-item">
-                  <a className="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span className="sr-only">Next</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            {totalAmount > 4 && (
+              <Pagination pagination={page} isSuccess={success} />
+            )}
           </div>
         </div>
       </section>

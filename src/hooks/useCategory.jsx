@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { useGetProductsByPageQuery } from "../store/api/productsApi";
+import { useGetProductsQuery } from "../store/api/productsApi";
 
-export default function useDataBase() {
-  const currentPage = useSelector((state) => state.page.currentPage);
-  const { data, isSuccess } = useGetProductsByPageQuery(currentPage);
+export default function useCategory() {
+  const { data, isSuccess } = useGetProductsQuery();
   const [products, setProducts] = useState([]);
-  const [page, setPage] = useState();
   const [success, setSuccess] = useState();
   useEffect(() => {
     if (!isSuccess) return;
@@ -21,15 +18,8 @@ export default function useDataBase() {
       sales: product.attributes.sales,
       launchAt: product.attributes?.launchAt,
     }));
-    const pagination = {
-      totalPages: data.meta?.pageCount || "",
-      pageSize: data.meta?.pageSize,
-      totalAmount: data.meta?.total,
-      currentPage: data.meta?.page,
-    };
     setProducts(product);
-    setPage(pagination);
     setSuccess(isSuccess);
   }, [isSuccess, data]);
-  return { products, page, success };
+  return { products, success };
 }
