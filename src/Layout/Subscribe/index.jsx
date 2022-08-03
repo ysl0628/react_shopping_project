@@ -17,10 +17,10 @@ export default function Subscribe() {
           <div className="col-md-5">
             <div className="form-square form-square-withicon d-flex justify-content-between">
               <label
-                for="subscription"
+                htmlFor="subscription"
                 className="material-icons form-square-icon-left"
               >
-                <i class="material-icons fa-solid fa-envelope"></i>
+                <i className="material-icons fa-solid fa-envelope"></i>
               </label>
               <input
                 type="email"
@@ -28,7 +28,7 @@ export default function Subscribe() {
                 className="form-input w-100"
               />
               <button className="btn btn-accent btn-lg d-flex align-items-center">
-                <i class="material-icons fa-solid fa-circle-arrow-right"></i>
+                <i className="material-icons fa-solid fa-circle-arrow-right"></i>
               </button>
             </div>
           </div>

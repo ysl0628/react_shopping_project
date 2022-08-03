@@ -19,7 +19,7 @@ export default function Home() {
           <div className="row no-gutters justify-content-center rectangle-section">
             <div className="col-md-10">
               <div className="row no-gutters">
-                <a href="#" className="col-4 rectangle-image-wrap active">
+                <a className="col-4 rectangle-image-wrap">
                   <span className="rectangle-text">本日精選</span>
                   <div className="four-sides rectangle-over zindex--1"></div>
                   <div
@@ -29,7 +29,7 @@ export default function Home() {
                     }}
                   ></div>
                 </a>
-                <a href="#" className="col-4 rectangle-image-wrap">
+                <a className="col-4 rectangle-image-wrap">
                   <span className="rectangle-text">人氣推薦</span>
                   <div className="four-sides rectangle-over zindex--1"></div>
                   <div
@@ -39,7 +39,7 @@ export default function Home() {
                     }}
                   ></div>
                 </a>
-                <a href="#" className="col-4 rectangle-image-wrap">
+                <a className="col-4 rectangle-image-wrap">
                   <span className="rectangle-text">新品上市</span>
                   <div className="four-sides rectangle-over zindex--1"></div>
                   <div

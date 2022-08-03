@@ -4,12 +4,19 @@ import Item from "./Item";
 import Pagination from "./Pagination";
 import Category from "./Category";
 import useCategory from "../../hooks/useCategory";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setProducts } from "../../store/reducers/productSlice";
 
 export default function Products() {
-  const totalAmount = useSelector((state) => state.page.totalAmount);
-  const { products: dataAll } = useCategory();
   const { products: data, page, success } = useDataBase();
+  const dispatch = useDispatch();
+
+  const totalAmount = useSelector((state) => state.page.totalAmount);
+  const p = useSelector((state) => state.cart.products);
+  console.log(p);
+  // const cartProducts = useSelector((state) => state.cart.products);
+
+  const { products: dataAll } = useCategory();
   const today = new Date().getTime();
   const aWeek = 1000 * 60 * 60 * 24 * 8;
   const dataSpecial = dataAll.filter((item) => item.special === true);
@@ -18,7 +25,9 @@ export default function Products() {
     (item) => today - new Date(item.launchAt).getTime() <= aWeek
   );
   const [status, setStatus] = useState("all");
-
+  useEffect(() => {
+    dispatch(setProducts(data));
+  }, []);
   return (
     <>
       <div className="container px-0 px-md-3">

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useGetProductsByPageQuery } from "../store/api/productsApi";
 
 export default function useDataBase() {
@@ -7,10 +7,9 @@ export default function useDataBase() {
   const { data, isSuccess } = useGetProductsByPageQuery(currentPage);
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState();
-  const [success, setSuccess] = useState();
   useEffect(() => {
     if (!isSuccess) return;
-    const product = data.data.map((product) => ({
+    let products = data.data.map((product) => ({
       key: product.id,
       id: product.id,
       title: product.attributes.name,
@@ -20,6 +19,7 @@ export default function useDataBase() {
       special: product.attributes.special,
       sales: product.attributes.sales,
       launchAt: product.attributes?.launchAt,
+      amount: 0,
     }));
     const pagination = {
       totalPages: data.meta?.pageCount || "",
@@ -27,9 +27,8 @@ export default function useDataBase() {
       totalAmount: data.meta?.total,
       currentPage: data.meta?.page,
     };
-    setProducts(product);
+    setProducts(products);
     setPage(pagination);
-    setSuccess(isSuccess);
   }, [isSuccess, data]);
-  return { products, page, success };
+  return { products, page };
 }

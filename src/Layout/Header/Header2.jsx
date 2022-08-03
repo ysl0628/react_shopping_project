@@ -1,7 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function Header2() {
+  const total = useSelector((state) => state.cart.totalAmount);
   return (
     <nav className="navbar navbar-expand-md navbar-light bg-white">
       <div className="container">
@@ -14,7 +16,7 @@ export default function Header2() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <i class="fa-solid fa-bars material-icons"></i>
+          <i className="fa-solid fa-bars material-icons"></i>
         </button>
         <Link className="navbar-brand" to={"home"}>
           <img
@@ -37,7 +39,13 @@ export default function Header2() {
           className="nav-link d-flex align-items-center order-md-1"
           to={"cart"}
         >
-          <i class="material-icons fa-solid fa-cart-shopping"></i>
+          <i className="material-icons fa-solid fa-cart-shopping position-relative">
+            {total !== 0 && (
+              <span className="position-absolute top-0 start-200 translate-middle badge rounded-pill bg-danger text-light">
+                {total}
+              </span>
+            )}
+          </i>
         </Link>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ml-auto">

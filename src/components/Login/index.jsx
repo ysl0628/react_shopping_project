@@ -65,7 +65,7 @@ export default function Login() {
                     for="username"
                     className="material-icons form-square-icon-left"
                   >
-                    <i class="fa-solid fa-user"></i>
+                    <i className="fa-solid fa-user"></i>
                   </label>
                   <input
                     type="text"
@@ -80,7 +80,7 @@ export default function Login() {
                     for="password"
                     className="material-icons form-square-icon-left"
                   >
-                    <i class="fa-solid fa-lock"></i>
+                    <i className="fa-solid fa-lock"></i>
                   </label>
                   <input
                     type="password"

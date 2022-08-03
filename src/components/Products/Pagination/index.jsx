@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import useDataBase from "../../../hooks/useDataBase";
 import { addPage, setPage, subPage } from "../../../store/reducers/pageSlice";
 
-export default function Pagination({ pagination, isSuccess }) {
+export default function Pagination({ pagination }) {
   const [activeNumber, setActiveNumber] = useState(1);
   const dispatch = useDispatch();
   const pageInfo = useSelector((state) => state.page);
   const pageNumbers = [];
-  if (!isSuccess) return;
+  if (!pagination) return;
   for (let n = 1; n <= Math.ceil(pagination.totalPages); n++) {
     pageNumbers.push(n);
   }
