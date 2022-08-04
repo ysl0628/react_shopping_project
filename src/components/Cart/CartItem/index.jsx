@@ -1,8 +1,14 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  removeFromCart,
+  selectToCart,
+} from "../../../store/reducers/cartSlice";
 
 export default function CartItem({ product }) {
   const perTotal = product.price * product.amount;
+  useSelector((state) => state.cart.products);
+  const dispatch = useDispatch();
   return (
     <>
       {" "}
@@ -26,12 +32,16 @@ export default function CartItem({ product }) {
               <div className="input-group carts-input-group">
                 <div className="input-group-prepend">
                   <select
-                    class="form-select form-control"
+                    className="form-select form-control"
                     aria-label="Default select example"
                     value={product.amount}
-                    onChange={(e) => e.preventDefault()}
+                    onChange={(e) => {
+                      e.preventDefault();
+                      const data = { value: e.target.value, product: product };
+                      console.log(dispatch(selectToCart(data)));
+                      dispatch(selectToCart(data));
+                    }}
                   >
-                    <option selected>Open this select menu</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -50,11 +60,14 @@ export default function CartItem({ product }) {
         </div>
 
         <div className="price ml-md-auto align-items-center py-3 justify-content-end d-flex flex-md-row-reverse">
-          <a href="#" className="btn d-none d-md-block">
+          <button
+            className="btn d-none d-md-block"
+            onClick={() => dispatch(removeFromCart(product))}
+          >
             <span className="material-icons">
               <i className="fa-solid fa-trash-can"></i>
             </span>
-          </a>
+          </button>
           <span className="h5 mb-0 mr-md-3">NT$ {perTotal}</span>
         </div>
       </div>

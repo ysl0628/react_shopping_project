@@ -1,9 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import useCart from "../../../hooks/useCart";
 
 export default function Summary() {
-  const cart = useSelector((state) => state.cart);
-  const deliveryFee = cart.totalPrice > 500 ? 0 : 100;
+  const { totalPrice } = useCart();
+  const deliveryFee = totalPrice > 500 ? 0 : 100;
   return (
     <>
       <div className="card border-primary-lighter mb-4">
@@ -13,7 +13,7 @@ export default function Summary() {
         <div className="card-body text-primary-light">
           <div className="d-flex justify-content-between mb-2">
             <span>小計</span>
-            <span>NT$ {cart.totalPrice}</span>
+            <span>NT$ {totalPrice}</span>
           </div>
           <div className="d-flex justify-content-between mb-3">
             <span>運費</span>
@@ -21,7 +21,7 @@ export default function Summary() {
           </div>
           <div className="d-flex justify-content-between">
             <span className="h5">總計</span>
-            <span className="h5">NT$ {cart.totalPrice + deliveryFee}</span>
+            <span className="h5">NT$ {totalPrice + deliveryFee}</span>
           </div>
         </div>
       </div>

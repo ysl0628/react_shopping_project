@@ -1,11 +1,15 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import OrderList from "../OderList";
 import Summary from "../Summary";
+import { removeAll } from "../../../store/reducers/cartSlice";
 
 export default function Invoice() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSubmit = (event) => {
+    dispatch(removeAll());
     navigate("/cart/success");
   };
   return (

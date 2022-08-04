@@ -1,12 +1,12 @@
 import React from "react";
 import Footer from "./Footer";
-import Header2 from "./Header/Header2";
+import Header from "./Header";
 import Subscribe from "./Subscribe";
 
 export default function Layout(props) {
   return (
     <>
-      <Header2 />
+      <Header />
       {props.children}
       <Subscribe />
       <Footer />
