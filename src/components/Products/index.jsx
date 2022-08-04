@@ -11,6 +11,7 @@ export default function Products() {
   const { products: data, page, success } = useDataBase();
   const { products: dataAll } = useCategory();
   const totalAmount = useSelector((state) => state.page.totalAmount);
+  const cart = useSelector((state) => state.cart.products);
   const today = new Date().getTime();
   const aWeek = 1000 * 60 * 60 * 24 * 8;
   const dataSpecial = dataAll.filter((item) => item.special === true);
@@ -53,18 +54,20 @@ export default function Products() {
             <div className="row">
               {/* <!-- 產品 Start --> */}
               {status === "all" &&
-                data.map((product) => <Item key={product.id} item={product} />)}
+                data.map((product) => (
+                  <Item key={product.id} item={product} cart={cart} />
+                ))}
               {status === "special" &&
                 dataSpecial.map((product) => (
-                  <Item key={product.id} item={product} />
+                  <Item key={product.id} item={product} cart={cart} />
                 ))}
               {status === "bestSales" &&
                 dataBestSales.map((product) => (
-                  <Item key={product.id} item={product} />
+                  <Item key={product.id} item={product} cart={cart} />
                 ))}
               {status === "new" &&
                 dataNew.map((product) => (
-                  <Item key={product.id} item={product} />
+                  <Item key={product.id} item={product} cart={cart} />
                 ))}
               {/* <!-- 產品 End --> */}
             </div>

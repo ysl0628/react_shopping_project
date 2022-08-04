@@ -22,7 +22,7 @@ export const cartSlice = createSlice({
       state.products[productIndex].amount += 1;
       localStorage.setItem("products", JSON.stringify(state.products));
     },
-    selectToCart(state, action) {
+    modifyToCart(state, action) {
       let productIndex = null;
       const isExsit = state.products.filter((product, index) => {
         if (product.id !== action.payload.product.id) return false;
@@ -32,6 +32,24 @@ export const cartSlice = createSlice({
       if (isExsit.length === 0) return;
       state.products[productIndex].amount = parseInt(action.payload.value);
 
+      localStorage.setItem("products", JSON.stringify(state.products));
+    },
+    selectToCart(state, action) {
+      let productIndex = null;
+      const isExsit = state.products.filter((product, index) => {
+        if (product.id !== action.payload.product.id) return false;
+        productIndex = index;
+        return true;
+      });
+      if (isExsit.length === 0) {
+        state.products.push({
+          ...action.payload.product,
+          amount: parseInt(action.payload.value),
+        });
+        localStorage.setItem("products", JSON.stringify(state.products));
+        return;
+      }
+      state.products[productIndex].amount += parseInt(action.payload.value);
       localStorage.setItem("products", JSON.stringify(state.products));
     },
     removeFromCart(state, action) {
@@ -47,5 +65,10 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, selectToCart, removeFromCart, removeAll } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  modifyToCart,
+  removeFromCart,
+  removeAll,
+  selectToCart,
+} = cartSlice.actions;

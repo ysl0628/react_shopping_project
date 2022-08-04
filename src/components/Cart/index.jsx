@@ -33,7 +33,7 @@ export default function Cart() {
               您的購物車
             </h1>
             {cart.products.map((product) => (
-              <CartItem key={product.id} product={product} cart={cart} />
+              <CartItem key={product.id} product={product} />
             ))}
             <div className="negative-row-margin mx-md-8">
               <button

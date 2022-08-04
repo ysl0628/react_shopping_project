@@ -45,7 +45,7 @@ export default function Invoice() {
               </nav>
 
               <div className="form-group">
-                <label className="h4" for="email">
+                <label className="h4" htmfor="email">
                   電子郵件信箱
                 </label>
                 <input
@@ -57,7 +57,7 @@ export default function Invoice() {
                 />
               </div>
               <div className="form-group">
-                <label className="h4" for="vat-number">
+                <label className="h4" htmfor="vat-number">
                   統一編號（選填）
                 </label>
                 <input

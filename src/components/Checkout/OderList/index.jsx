@@ -13,7 +13,7 @@ export default function OrderList() {
         </h2>
         <div className="card-body carts">
           {products.map((item) => (
-            <OrderItem item={item} />
+            <OrderItem key={item.id} item={item} />
           ))}
         </div>
       </div>

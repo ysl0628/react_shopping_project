@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../store/reducers/cartSlice";
-import InfoModal from "./Modal/InfoModal";
+import Modal from "./Modal";
 
-export default function Item({ item }) {
-  // const [modal, setModal] = useState(false);
-  // const Toggle = () => setModal(!modal);
+export default function Item({ item, cart }) {
+  const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
-  // const stateData = useSelector((state) => state.cart.products);
-  // const [currentItem, setCurrentItem] = useState();
-  // useEffect(() => {
-  //   const test = stateData.filter((data) => data.id === item.id);
-  //   setCurrentItem(test);
-  // }, [item.id, stateData]);
+  const toggle = () => {
+    setModal(!modal);
+  };
   return (
     <div className="col-md-6">
       <div className="item-card mb-5">
@@ -31,23 +27,20 @@ export default function Item({ item }) {
             onClick={() => {
               dispatch(addToCart(item));
             }}
-            href="#"
             className="btn-lg btn-primary-lighter btn btn-block col"
           >
             加入購物車
           </button>
           {/* <!-- Button trigger modal --> */}
-          {/* <button
-            onClick={() => Toggle()}
+          <button
+            onClick={() => toggle()}
             type="button"
-            className="btn btn-primary"
+            className="btn-lg btn btn-primary col"
           >
-            Launch demo modal
-          </button> */}
-          <InfoModal />
-          {/* <Modal show={modal} title="My Modal" close={Toggle}>
-            This is Modal content
-          </Modal> */}
+            查看資訊
+          </button>
+          {/* <Modal /> */}
+          {modal && <Modal setModal={setModal} close={toggle} item={item} />}
         </div>
       </div>
     </div>

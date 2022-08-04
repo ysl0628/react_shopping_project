@@ -2,12 +2,11 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   removeFromCart,
-  selectToCart,
+  modifyToCart,
 } from "../../../store/reducers/cartSlice";
 
 export default function CartItem({ product }) {
   const perTotal = product.price * product.amount;
-  useSelector((state) => state.cart.products);
   const dispatch = useDispatch();
   return (
     <>
@@ -38,8 +37,7 @@ export default function CartItem({ product }) {
                     onChange={(e) => {
                       e.preventDefault();
                       const data = { value: e.target.value, product: product };
-                      console.log(dispatch(selectToCart(data)));
-                      dispatch(selectToCart(data));
+                      dispatch(modifyToCart(data));
                     }}
                   >
                     <option value="1">1</option>
