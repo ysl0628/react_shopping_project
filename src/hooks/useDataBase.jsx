@@ -9,7 +9,7 @@ export default function useDataBase() {
   const [page, setPage] = useState();
   useEffect(() => {
     if (!isSuccess) return;
-    let products = data.data.map((product) => ({
+    const products = data.data.map((product) => ({
       key: product.id,
       id: product.id,
       title: product.attributes.name,
@@ -19,7 +19,7 @@ export default function useDataBase() {
       special: product.attributes.special,
       sales: product.attributes.sales,
       launchAt: product.attributes?.launchAt,
-      amount: 0,
+      description: product.attributes?.description,
     }));
     const pagination = {
       totalPages: data.meta?.pageCount || "",

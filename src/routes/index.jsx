@@ -7,6 +7,8 @@ import Success from "../components/Checkout/Success";
 import Home from "../components/Home";
 import Login from "../components/Login";
 import Products from "../components/Products";
+import Admin from "../components/Admin";
+import NeedAuth from "../components/NeedAuth";
 
 export const routes = [
   {
@@ -26,24 +28,48 @@ export const routes = [
     element: <Login />,
   },
   {
+    path: "admin",
+    element: (
+      <NeedAuth>
+        <Admin />
+      </NeedAuth>
+    ),
+  },
+  {
     path: "cart",
     element: <Cart />,
   },
   {
     path: "cart/delivery",
-    element: <Delivery />,
+    element: (
+      <NeedAuth>
+        <Delivery />
+      </NeedAuth>
+    ),
   },
   {
     path: "cart/payment",
-    element: <Payment />,
+    element: (
+      <NeedAuth>
+        <Payment />
+      </NeedAuth>
+    ),
   },
   {
     path: "cart/invoice",
-    element: <Invoice />,
+    element: (
+      <NeedAuth>
+        <Invoice />
+      </NeedAuth>
+    ),
   },
   {
     path: "cart/success",
-    element: <Success />,
+    element: (
+      <NeedAuth>
+        <Success />
+      </NeedAuth>
+    ),
   },
 ];
 

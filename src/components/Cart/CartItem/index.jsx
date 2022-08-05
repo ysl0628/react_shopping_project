@@ -30,27 +30,21 @@ export default function CartItem({ product }) {
             <div className="cart-control ml-md-auto mt-3 mt-md-0">
               <div className="input-group carts-input-group">
                 <div className="input-group-prepend">
-                  <select
+                  <input
+                    type="number"
+                    min="1"
                     className="form-select form-control"
                     aria-label="Default select example"
                     value={product.amount}
                     onChange={(e) => {
                       e.preventDefault();
-                      const data = { value: e.target.value, product: product };
+                      const data = {
+                        ...product,
+                        amount: parseInt(e.target.value),
+                      };
                       dispatch(modifyToCart(data));
                     }}
-                  >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                  </select>
+                  />
                 </div>
               </div>
             </div>

@@ -1,9 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useCart from "../../hooks/useCart";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../store/reducers/authSlice";
 
 export default function Header() {
+  const auth = useSelector((state) => state.auth);
+  console.log(auth.isLogined);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { totalAmount } = useCart();
+
   return (
     <nav className="navbar navbar-expand-md navbar-light bg-white">
       <div className="container">
@@ -60,10 +67,29 @@ export default function Header() {
               </Link>
             </li>
             <li className="nav-item <% if (current === 'register') { %>active<%} %>">
-              <Link className="nav-link" to={"login"}>
-                登入
-              </Link>
+              {auth.isLogined ? (
+                <Link className="nav-link" to={"admin"}>
+                  {auth.user.username}
+                </Link>
+              ) : (
+                <Link className="nav-link" to={"login"}>
+                  登入
+                </Link>
+              )}
             </li>
+            {auth.isLogined && (
+              <li className="nav-item <% if (current === 'register') { %>active<%} %>">
+                <Link
+                  to={"/"}
+                  className="nav-link"
+                  onClick={() => {
+                    if (window.confirm("您確定要登出嗎?")) dispatch(logout());
+                  }}
+                >
+                  登出
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>

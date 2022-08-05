@@ -101,7 +101,7 @@ export default function Delivery() {
                   </div>
                 </div>
               </div>
-              <div className="form-group mb-0">
+              <div className="input-group has-validation mb-0">
                 <input
                   required
                   type="text"
@@ -109,6 +109,7 @@ export default function Delivery() {
                   id="address"
                   placeholder="幸福路 520 號"
                 />
+                <div class="invalid-feedback">Please choose a username.</div>
               </div>
             </div>
           </div>

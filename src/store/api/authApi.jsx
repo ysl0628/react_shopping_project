@@ -16,9 +16,18 @@ const authApi = createApi({
           };
         },
       }),
+      register: build.mutation({
+        query(user) {
+          return {
+            url: "auth/local/register",
+            method: "post",
+            body: user,
+          };
+        },
+      }),
     };
   },
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation, useRegisterMutation } = authApi;
 export default authApi;
