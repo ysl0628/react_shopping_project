@@ -1,14 +1,67 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import useValidation from "../../../hooks/useValidation";
 import OrderList from "../OderList";
 import Summary from "../Summary";
 
+const phoneRule = /^09\d{8}$/;
+// const emailRule =
+//   /^\w+((-\w+)|(\.\w+)|(\+\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+
+const isNotEmpty = (value) => value.trim() !== "";
+// const isEmailFormat = (value) => emailRule.test(value);
+const isPhoneFormat = (value) => phoneRule.test(value);
+
 export default function Delivery() {
   const navigate = useNavigate();
+
+  const {
+    value: lastname,
+    isValid: lastnameIsValid,
+    isError: lastnameError,
+    onChangeValue: onChangeLastname,
+    onBlurValue: onBlurLastname,
+  } = useValidation(isNotEmpty);
+  const {
+    value: firstname,
+    isValid: firstnameIsValid,
+    isError: firstnameError,
+    onChangeValue: onChangeFirstname,
+    onBlurValue: onBlurFirstname,
+  } = useValidation(isNotEmpty);
+  const {
+    value: address,
+    isValid: addressIsValid,
+    isError: addressError,
+    onChangeValue: onChangeAddress,
+    onBlurValue: onBlurAddress,
+  } = useValidation(isNotEmpty);
+
+  const {
+    value: phone,
+    isValid: phoneIsValid,
+    isError: phoneError,
+    onChangeValue: onChangePhone,
+    onBlurValue: onBlurPhone,
+  } = useValidation(isPhoneFormat);
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (
+      !lastnameIsValid ||
+      !firstnameIsValid ||
+      !addressIsValid ||
+      !phoneIsValid
+    )
+      return;
     navigate("/cart/payment");
   };
+
+  const lastnameInputClasses = lastnameError ? "border border-danger" : "";
+  const firstnameInputClasses = firstnameError ? "border border-danger" : "";
+  const addressInputClasses = addressError ? "border border-danger" : "";
+  const phoneInputClasses = phoneError ? "border border-danger" : "";
+
   return (
     <section className="container my-lg-6">
       <div className="row ">
@@ -35,12 +88,20 @@ export default function Delivery() {
                       姓氏
                     </label>
                     <input
-                      required
                       type="text"
-                      className="form-control form-control-lg bg-primary-lighter"
+                      className={
+                        "form-control form-control-lg bg-primary-lighter" +
+                        lastnameInputClasses
+                      }
                       id="lastname"
                       placeholder="王"
+                      onChange={onChangeLastname}
+                      onBlur={onBlurLastname}
+                      value={lastname}
                     />
+                    {lastnameError && (
+                      <div style={{ color: "#F17C67" }}>請輸入姓氏</div>
+                    )}
                   </div>
                 </div>
                 <div className="col-6">
@@ -49,27 +110,43 @@ export default function Delivery() {
                       名字
                     </label>
                     <input
-                      required
                       type="text"
-                      className="form-control form-control-lg bg-primary-lighter"
+                      className={
+                        "form-control form-control-lg bg-primary-lighter" +
+                        firstnameInputClasses
+                      }
                       id="firstname"
                       placeholder="小明"
+                      onChange={onChangeFirstname}
+                      onBlur={onBlurFirstname}
+                      value={firstname}
                     />
+                    {firstnameError && (
+                      <div style={{ color: "#F17C67" }}>請輸入名字</div>
+                    )}
                   </div>
                 </div>
               </div>
 
               <div className="form-group">
                 <label className="h4" htmlFor="tel">
-                  電話
+                  手機號碼
                 </label>
                 <input
-                  required
                   type="tel"
-                  className="form-control form-control-lg bg-primary-lighter"
+                  className={
+                    "form-control form-control-lg bg-primary-lighter" +
+                    phoneInputClasses
+                  }
                   id="tel"
-                  placeholder="0912-345-678"
+                  placeholder="0912345678"
+                  onChange={onChangePhone}
+                  onBlur={onBlurPhone}
+                  value={phone}
                 />
+                {phoneError && (
+                  <div style={{ color: "#F17C67" }}>手機號碼格式錯誤</div>
+                )}
               </div>
 
               <label className="h4" htmlFor="city">
@@ -79,7 +156,6 @@ export default function Delivery() {
                 <div className="col-6">
                   <div className="form-group">
                     <select
-                      required
                       name=""
                       id="city"
                       className="form-control form-control-lg bg-primary-lighter"
@@ -91,7 +167,6 @@ export default function Delivery() {
                 <div className="col-6">
                   <div className="form-group">
                     <select
-                      required
                       name=""
                       id="region"
                       className="form-control form-control-lg bg-primary-lighter"
@@ -101,15 +176,23 @@ export default function Delivery() {
                   </div>
                 </div>
               </div>
-              <div className="input-group has-validation mb-0">
+              <div className="input-group mb-0 d-flex flex-column">
                 <input
-                  required
                   type="text"
-                  className="form-control form-control-lg bg-primary-lighter"
+                  className={
+                    "form-control form-control-lg bg-primary-lighter" +
+                    addressInputClasses
+                  }
+                  style={{ width: "100%" }}
                   id="address"
                   placeholder="幸福路 520 號"
+                  onChange={onChangeAddress}
+                  onBlur={onBlurAddress}
+                  value={address}
                 />
-                <div class="invalid-feedback">Please choose a username.</div>
+                {addressError && (
+                  <div style={{ color: "#F17C67" }}>請輸入正確的地址</div>
+                )}
               </div>
             </div>
           </div>
@@ -118,6 +201,12 @@ export default function Delivery() {
             <button
               className="btn btn-accent btn-block btn-lg py-3 text-primary"
               type="submit"
+              disabled={
+                !lastnameIsValid ||
+                !firstnameIsValid ||
+                !addressIsValid ||
+                !phoneIsValid
+              }
             >
               下一步
             </button>

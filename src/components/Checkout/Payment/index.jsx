@@ -1,15 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useValidation from "../../../hooks/useValidation";
 import OrderList from "../OderList";
 import Summary from "../Summary";
 
+let optionMonth = [];
+for (let i = 1; i < 9; i++) {
+  optionMonth.push(
+    <option key={i} value={i}>
+      {"0" + i}
+    </option>
+  );
+}
+let optionYear = [];
+for (let i = 2022; i <= 2040; i++) {
+  optionYear.push(
+    <option key={i} value={i}>
+      {i}
+    </option>
+  );
+}
+
+const creditRule = /^\d{4}\s\d{4}\s\d{4}\s\d{4}\s$/;
+const cscRule = /^\d{4}$/;
+
+const isCardFormat = (value) => creditRule.test(value);
+const isCscFormat = (value) => cscRule.test(value);
+const isNotEmpty = (value) => value.trim() !== "";
+
 export default function Payment() {
+  const [cardNum, setCardNum] = useState("");
   const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("下一步");
     navigate("/cart/invoice");
   };
+
+  const {
+    value: card,
+    isValid: cardIsValid,
+    isError: cardError,
+    onChangeValue: onChangeCard,
+    onBlurValue: onBlurCard,
+  } = useValidation(isCardFormat);
+
+  const formats = (e) => {
+    console.log(e.target.value);
+    if (e.key) {
+      e.key = card.replace(/\W/gi, "").replace(/(.{4})/g, "$1 ");
+    }
+    setCardNum(e.key);
+    console.log(e.key);
+  };
+  console.log(cardNum);
   return (
     <section className="container my-lg-6">
       <div className="row form-group needs-validation" onSubmit={handleSubmit}>
@@ -40,8 +83,11 @@ export default function Payment() {
                     type="text"
                     className="form-control bg-primary-lighter border-right-0"
                     id="credit"
-                    placeholder="9012-3456-7890-1234"
-                    required
+                    placeholder="9012 3456 7890 1234"
+                    onChange={onChangeCard}
+                    onBlur={onBlurCard}
+                    onKeyDown={(e) => formats(e)}
+                    maxLength={"19"}
                   />
                   <div className="input-group-append">
                     <span className="input-group-text material-icons bg-primary-lighter text-primary">
@@ -88,12 +134,12 @@ export default function Payment() {
                       name=""
                       id="validity-period-month"
                       className="form-control form-control-lg bg-primary-lighter"
-                      required
                     >
-                      <option value="" selected>
-                        月
-                      </option>
-                      <option value="1">1</option>
+                      <option value={0}>月</option>
+                      {optionMonth}
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
                     </select>
                   </div>
                 </div>
@@ -103,12 +149,9 @@ export default function Payment() {
                       name=""
                       id="validity-period-year"
                       className="form-control form-control-lg bg-primary-lighter"
-                      required
                     >
-                      <option value="" selected>
-                        年
-                      </option>
-                      <option value="2030">2030</option>
+                      <option value={0}>年</option>
+                      {optionYear}
                     </select>
                   </div>
                 </div>

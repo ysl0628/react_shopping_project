@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function OrderItem({ item }) {
-  console.log(item);
   return (
     <>
       <div className="d-flex mt-1">
