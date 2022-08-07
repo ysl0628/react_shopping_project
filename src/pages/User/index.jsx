@@ -21,7 +21,7 @@ export default function User() {
         <h1 className="bg-primary-lighter h4 mb-0 py-4 px-5 text-start">
           您好，{username}
         </h1>
-        <h5 className="mt-3 mb-3 text-center">您的訂單</h5>
+        <h3 className="mt-3 mb-3 text-center">您的訂單</h3>
         <div className="mx-5">
           {orders.map((order) => (
             <Order key={order.id} order={order} />

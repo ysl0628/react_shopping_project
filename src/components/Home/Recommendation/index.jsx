@@ -1,6 +1,9 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../../store/reducers/cartSlice";
 
 export default function Recommendation({ item }) {
+  const dispatch = useDispatch();
   return (
     <div className="col-md-4">
       <div className="item-card mb-4">
@@ -23,7 +26,13 @@ export default function Recommendation({ item }) {
           <div className="item-name col">{item.title}</div>
           <strong className="item-price col">NT$ {item.price}</strong>
         </div>
-        <a href="#" className="btn-lg btn-primary-lighter btn btn-block">
+        <a
+          href="#!"
+          className="btn-lg btn-primary-lighter btn btn-block"
+          onClick={() => {
+            dispatch(addToCart({ amount: 1, ...item }));
+          }}
+        >
           加入購物車
         </a>
       </div>
