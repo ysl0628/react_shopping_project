@@ -17,8 +17,20 @@ export default function Recommendation({ item }) {
           <div className="item-stared-icon">
             <label className="ui-checked-display">
               <input type="checkbox" className="ui-checkbox" />
-              <i className="material-icons ui-show">favorite</i>
-              <i className="material-icons ui-hidden">favorite_border</i>
+              {/* <i className="bi bi-heart-fill material-icons ui-show">
+                favorite
+              </i>
+              <i className="bi bi-heart material-icons ui-hidden">favorite</i> */}
+              <i
+                className="fa-solid fa-heart ui-show"
+                style={{ color: "red", fontSize: "1.3rem" }}
+              ></i>
+              <i
+                className="fa-solid fa-heart text-primary-lighter ui-hidden"
+                style={{ fontSize: "1.3rem" }}
+              ></i>
+              {/* <i className="material-icons ui-show">favorite</i> */}
+              {/* <i className="material-icons ui-hidden">favorite_border</i> */}
             </label>
           </div>
         </div>
@@ -30,7 +42,8 @@ export default function Recommendation({ item }) {
           href="#!"
           className="btn-lg btn-primary-lighter btn btn-block"
           onClick={() => {
-            dispatch(addToCart({ amount: 1, ...item }));
+            dispatch(addToCart({ ...item, amount: 1 }));
+            alert("成功加入購物車中");
           }}
         >
           加入購物車

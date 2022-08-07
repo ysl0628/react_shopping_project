@@ -7,7 +7,7 @@ export default function User() {
   const [orders, setOrders] = useState([]);
   const username = useSelector((state) => state.auth.user.username);
   const { id } = JSON.parse(localStorage.getItem("user"));
-  const { data: user, isSuccess } = useGetUserByIdQuery(id);
+  const { data: user, isSuccess, isLoading } = useGetUserByIdQuery(id);
 
   useEffect(() => {
     if (!isSuccess) return;
@@ -23,9 +23,14 @@ export default function User() {
         </h1>
         <h3 className="mt-3 mb-3 text-center">您的訂單</h3>
         <div className="mx-5">
-          {orders.map((order) => (
-            <Order key={order.id} order={order} />
-          ))}
+          {isLoading ? (
+            <div className=" d-flex justify-content-center">
+              <div className="spinner-border" role="status"></div>
+              <div className="text-primary h4 text-center">訂單讀取中...</div>
+            </div>
+          ) : (
+            orders.map((order) => <Order key={order.id} order={order} />)
+          )}
         </div>
       </div>
     </div>

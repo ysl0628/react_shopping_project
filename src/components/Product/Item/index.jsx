@@ -25,7 +25,7 @@ export default function Item({ item, cart }) {
         <div className="d-flex text-center">
           <button
             onClick={() => {
-              dispatch(addToCart({ amount: 1, ...item }));
+              dispatch(addToCart({ ...item, amount: 1 }));
               alert("成功加入購物車中");
             }}
             className="btn-lg btn-primary-lighter btn btn-block col"

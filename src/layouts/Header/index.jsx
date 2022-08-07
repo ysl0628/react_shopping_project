@@ -6,7 +6,6 @@ import { logout } from "../../store/reducers/authSlice";
 
 export default function Header() {
   const auth = useSelector((state) => state.auth);
-  console.log(auth.isLogined);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { totalAmount } = useCart();

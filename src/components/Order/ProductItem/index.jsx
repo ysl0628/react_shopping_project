@@ -1,7 +1,6 @@
 import React from "react";
 
 export default function ProductItem({ product }) {
-  console.log(product.image_url);
   return (
     <>
       <div className="cart-row d-flex flex-column flex-md-row py-3">

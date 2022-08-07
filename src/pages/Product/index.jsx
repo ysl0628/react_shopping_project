@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import useDataBase from "../../hooks/useDataBase";
 import Item from "../../components/Product/Item";
-import Pagination from "./Pagination";
+import Pagination from "../../components/Product/Pagination";
 import Category from "../../components/Product/Category";
 import useCategory from "../../hooks/useCategory";
 import { useSelector } from "react-redux";
