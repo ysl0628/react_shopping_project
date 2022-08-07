@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import useValidation from "../../../hooks/useValidation";
-import OrderList from "../OderList";
-import Summary from "../Summary";
+import OrderList from "../../../components/Checkout/OderList";
+import Summary from "../../../components/Checkout/Summary";
+import "./index.css";
+import usePaymentValidation from "./usePaymentValidation";
 
 let optionMonth = [];
-for (let i = 1; i < 9; i++) {
+for (let i = 1; i <= 12; i++) {
   optionMonth.push(
     <option key={i} value={i}>
-      {"0" + i}
+      {i < 10 ? "0" + i : i}
     </option>
   );
 }
@@ -21,42 +22,40 @@ for (let i = 2022; i <= 2040; i++) {
   );
 }
 
-const creditRule = /^\d{4}\s\d{4}\s\d{4}\s\d{4}\s$/;
-const cscRule = /^\d{4}$/;
-
-const isCardFormat = (value) => creditRule.test(value);
-const isCscFormat = (value) => cscRule.test(value);
-const isNotEmpty = (value) => value.trim() !== "";
+const isShowErrorBorder = (isError) => (isError ? "border border-danger" : "");
 
 export default function Payment() {
-  const [cardNum, setCardNum] = useState("");
   const navigate = useNavigate();
+  const {
+    card,
+    cardError,
+    onChangeCard,
+    onBlurCard,
+    lastname,
+    lastnameError,
+    onChangeLastname,
+    onBlurLastname,
+    firstname,
+    firstnameError,
+    onChangeFirstname,
+    onBlurFirstname,
+    csc,
+    cscError,
+    onChangeCsc,
+    onBlurCsc,
+    getIsAllValid,
+  } = usePaymentValidation();
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!getIsAllValid()) return;
     navigate("/cart/invoice");
   };
 
-  const {
-    value: card,
-    isValid: cardIsValid,
-    isError: cardError,
-    onChangeValue: onChangeCard,
-    onBlurValue: onBlurCard,
-  } = useValidation(isCardFormat);
-
-  const formats = (e) => {
-    console.log(e.target.value);
-    if (e.key) {
-      e.key = card.replace(/\W/gi, "").replace(/(.{4})/g, "$1 ");
-    }
-    setCardNum(e.key);
-    console.log(e.key);
-  };
-  console.log(cardNum);
   return (
     <section className="container my-lg-6">
-      <div className="row form-group needs-validation" onSubmit={handleSubmit}>
-        <form className="col-lg-8">
+      <div className="row form-group needs-validation">
+        <form className="col-lg-8" onSubmit={handleSubmit}>
           <div className="negative-row-margin mx-lg-0">
             <div className="p-5 bg-primary text-primary-lighter">
               <div className="form-row mb-5">
@@ -84,17 +83,24 @@ export default function Payment() {
                     className="form-control bg-primary-lighter border-right-0"
                     id="credit"
                     placeholder="9012 3456 7890 1234"
-                    onChange={onChangeCard}
+                    onInput={onChangeCard}
                     onBlur={onBlurCard}
-                    onKeyDown={(e) => formats(e)}
+                    value={card
+                      .replace(/\W/gi, "")
+                      .replace(/(.{4})/g, "$1 ")
+                      .trim()}
                     maxLength={"19"}
                   />
+
                   <div className="input-group-append">
                     <span className="input-group-text material-icons bg-primary-lighter text-primary">
                       <i className="fa-solid fa-credit-card"></i>
                     </span>
                   </div>
                 </div>
+                {cardError && (
+                  <div style={{ color: "#F17C67" }}>請輸入正確的信用卡號碼</div>
+                )}
               </div>
               <label className="h4" htmlFor="cardname">
                 持卡人姓名
@@ -104,22 +110,38 @@ export default function Payment() {
                   <div className="form-group">
                     <input
                       type="text"
-                      className="form-control form-control-lg bg-primary-lighter"
+                      className={
+                        "form-control form-control-lg bg-primary-lighter" +
+                        isShowErrorBorder(lastnameError)
+                      }
                       id="cardname"
                       placeholder="王"
-                      required
+                      onChange={onChangeLastname}
+                      onBlur={onBlurLastname}
+                      value={lastname}
                     />
+                    {lastnameError && (
+                      <div style={{ color: "#F17C67" }}>請輸入姓氏</div>
+                    )}
                   </div>
                 </div>
                 <div className="col-6">
                   <div className="form-group">
                     <input
-                      required
                       type="text"
-                      className="form-control form-control-lg bg-primary-lighter"
+                      className={
+                        "form-control form-control-lg bg-primary-lighter" +
+                        isShowErrorBorder(firstnameError)
+                      }
                       id="cardname-2"
                       placeholder="小明"
+                      onChange={onChangeFirstname}
+                      onBlur={onBlurFirstname}
+                      value={firstname}
                     />
+                    {firstnameError && (
+                      <div style={{ color: "#F17C67" }}>請輸入名字</div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -137,9 +159,6 @@ export default function Payment() {
                     >
                       <option value={0}>月</option>
                       {optionMonth}
-                      <option value="10">10</option>
-                      <option value="11">11</option>
-                      <option value="12">12</option>
                     </select>
                   </div>
                 </div>
@@ -164,12 +183,23 @@ export default function Payment() {
                 <div className="col-6">
                   <div className="form-group">
                     <input
-                      type="text"
-                      className="form-control form-control-lg bg-primary-lighter"
+                      type="number"
+                      className={
+                        "form-control form-control-lg bg-primary-lighter" +
+                        isShowErrorBorder(cscError)
+                      }
                       id="cvv2"
                       placeholder="123"
-                      required
+                      onInput={(e) =>
+                        (e.target.value = e.target.value.slice(0, 3))
+                      }
+                      value={csc}
+                      onChange={onChangeCsc}
+                      onBlur={onBlurCsc}
                     />
+                    {cscError && (
+                      <div style={{ color: "#F17C67" }}>請輸入正確安全碼</div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -183,12 +213,6 @@ export default function Payment() {
             >
               下一步
             </button>
-            {/* <Link
-              className="btn btn-accent btn-block btn-lg py-3 text-primary"
-              to={"/cart/invoice"}
-            >
-              下一步
-            </Link> */}
           </div>
         </form>
 

@@ -68,7 +68,7 @@ export default function Header() {
             </li>
             <li className="nav-item <% if (current === 'register') { %>active<%} %>">
               {auth.isLogined ? (
-                <Link className="nav-link" to={"admin"}>
+                <Link className="nav-link" to={"user"}>
                   {auth.user.username}
                 </Link>
               ) : (

@@ -1,17 +1,30 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import OrderList from "../OderList";
-import Summary from "../Summary";
+import OrderList from "../../../components/Checkout/OderList";
+import Summary from "../../../components/Checkout/Summary";
 import { removeAll } from "../../../store/reducers/cartSlice";
+import useValidation from "../../../hooks/useValidation";
+
+const emailRule =
+  /^\w+((-\w+)|(\.\w+)|(\+\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+
+const isEmailFormat = (value) => emailRule.test(value);
 
 export default function Invoice() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { value, isValid, isError, onChangeValue, onBlurValue } =
+    useValidation(isEmailFormat);
   const handleSubmit = (event) => {
     dispatch(removeAll());
     navigate("/cart/success");
+    if (!isValid) return;
   };
+
+  const inputClasses = isError ? "border border-danger" : "";
+
   return (
     <section className="container my-lg-6">
       <div className="row form-group needs-validation" onSubmit={handleSubmit}>
@@ -39,9 +52,6 @@ export default function Invoice() {
                 <a className="nav-item nav-link py-3 h4 active" href="#">
                   電子發票
                 </a>
-                <a className="nav-item nav-link py-3 h4" href="#">
-                  郵寄發票
-                </a>
               </nav>
 
               <div className="form-group">
@@ -50,11 +60,19 @@ export default function Invoice() {
                 </label>
                 <input
                   type="email"
-                  className="form-control form-control-lg bg-primary-lighter"
+                  className={
+                    "form-control form-control-lg bg-primary-lighter" +
+                    inputClasses
+                  }
                   id="email"
                   placeholder="example@email.com"
-                  required
+                  onChange={onChangeValue}
+                  onBlur={onBlurValue}
+                  value={value}
                 />
+                {isError && (
+                  <div style={{ color: "#F17C67" }}>電子信箱格式錯誤</div>
+                )}
               </div>
               <div className="form-group">
                 <label className="h4" htmfor="vat-number">

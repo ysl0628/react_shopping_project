@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import CartItem from "./CartItem";
+import CartItem from "../../components/Cart/CartItem";
 import useCart from "../../hooks/useCart";
 import { removeAll } from "../../store/reducers/cartSlice";
+import { useGetUserByIdQuery } from "../../store/api/userApi";
 
 export default function Cart() {
   const { totalPrice } = useCart();

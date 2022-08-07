@@ -16,6 +16,7 @@ export default function useValidation(validateFuntion) {
   const isError = !isValid && isTouched; // 當 isValid 為 false，且失焦時 isError 為 true
 
   const onChangeValue = (e) => {
+    console.log(e.target.value);
     e.preventDefault();
     setInputValue(e.target.value);
     // dispatch(onInput(e.target.value));

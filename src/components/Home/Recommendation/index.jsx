@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function HomeItem({ item }) {
+export default function Recommendation({ item }) {
   return (
     <div className="col-md-4">
       <div className="item-card mb-4">

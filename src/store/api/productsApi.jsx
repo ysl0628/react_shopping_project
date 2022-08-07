@@ -6,13 +6,13 @@ const productsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:1337/api/",
     //用來統一設定請求頭
-    // prepareHeaders: (headers, { getState }) => {
-    //   // 取得用戶的 token
-    //   const token = getState().auth.token;
-    //   if (!token) return;
-    //   headers.set("Authorization", `Bearer ${token}`);
-    //   return headers;
-    // },
+    prepareHeaders: (headers, { getState }) => {
+      // 取得用戶的 token
+      const token = getState().auth.token;
+      if (!token) return;
+      headers.set("Authorization", `Bearer ${token}`);
+      return headers;
+    },
   }),
   tagTypes: ["products"], // 指定 Api 中的標籤類型
   endpoints(build) {

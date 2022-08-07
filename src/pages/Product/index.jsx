@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import useDataBase from "../../hooks/useDataBase";
-import Item from "./Item";
+import Item from "../../components/Product/Item";
 import Pagination from "./Pagination";
-import Category from "./Category";
+import Category from "../../components/Product/Category";
 import useCategory from "../../hooks/useCategory";
 import { useSelector } from "react-redux";
 
-export default function Products() {
+export default function Product() {
   const [status, setStatus] = useState("all");
   const { products: data, page, success } = useDataBase();
   const { products: dataAll } = useCategory();

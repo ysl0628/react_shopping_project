@@ -1,15 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import useValidation from "../../../hooks/useValidation";
-import OrderList from "../OderList";
-import Summary from "../Summary";
+import OrderList from "../../../components/Checkout/OderList";
+import Summary from "../../../components/Checkout/Summary";
 
 const phoneRule = /^09\d{8}$/;
-// const emailRule =
-//   /^\w+((-\w+)|(\.\w+)|(\+\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
 
 const isNotEmpty = (value) => value.trim() !== "";
-// const isEmailFormat = (value) => emailRule.test(value);
 const isPhoneFormat = (value) => phoneRule.test(value);
 
 export default function Delivery() {
@@ -36,7 +33,6 @@ export default function Delivery() {
     onChangeValue: onChangeAddress,
     onBlurValue: onBlurAddress,
   } = useValidation(isNotEmpty);
-
   const {
     value: phone,
     isValid: phoneIsValid,

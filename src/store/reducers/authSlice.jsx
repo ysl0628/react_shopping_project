@@ -48,6 +48,7 @@ export const authSlice = createSlice({
       localStorage.removeItem("token");
       localStorage.removeItem("user");
       localStorage.removeItem("expirationTime");
+      localStorage.removeItem("products");
     },
   },
 });

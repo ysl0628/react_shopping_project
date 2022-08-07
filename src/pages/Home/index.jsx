@@ -1,6 +1,6 @@
 import React from "react";
 import useDataBase from "../../hooks/useDataBase";
-import HomeItem from "./HomeItem";
+import Recommendation from "../../components/Home/Recommendation";
 
 export default function Home() {
   const { products: data } = useDataBase();
@@ -162,7 +162,7 @@ export default function Home() {
       <section className="container my-5 my-md-7">
         <div className="row">
           {dataSpecial.map((product) => (
-            <HomeItem key={product.id} item={product} />
+            <Recommendation key={product.id} item={product} />
           ))}
         </div>
       </section>
