@@ -1,32 +1,50 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import OrderList from "../../../components/Checkout/OderList";
 import Summary from "../../../components/Checkout/Summary";
-import { removeAll } from "../../../store/reducers/cartSlice";
-import useValidation from "../../../hooks/useValidation";
+import useInvoiceValidation from "./useInvoiceValidation";
+import { onInvoiceInput } from "../../../store/reducers/orderSlice";
+import useCart from "../../../hooks/useCart";
+import Confirm from "./Confirm";
 
-const emailRule =
-  /^\w+((-\w+)|(\.\w+)|(\+\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
-
-const isEmailFormat = (value) => emailRule.test(value);
+const isShowErrorBorder = (isError) => (isError ? "border border-danger" : "");
 
 export default function Invoice() {
+  const [showConfirm, setShowConfirm] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const { totalPrice: total } = useCart();
+  const deliveryFee = total > 500 ? 0 : 100;
 
-  const { value, isValid, isError, onChangeValue, onBlurValue } =
-    useValidation(isEmailFormat);
-  const handleSubmit = (event) => {
-    dispatch(removeAll());
-    navigate("/cart/success");
-    if (!isValid) return;
+  const {
+    email,
+    emailIsError,
+    onChangeEmail,
+    onBlurEmail,
+    taxNumber,
+    taxNumberIsError,
+    onChangeTaxNumber,
+    onBlurTaxNumber,
+    getIsAllValid,
+  } = useInvoiceValidation();
+
+  const onClose = () => {
+    setShowConfirm((pre) => !pre);
   };
 
-  const inputClasses = isError ? "border border-danger" : "";
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!getIsAllValid()) return;
+    dispatch(
+      onInvoiceInput({ taxNumber, email, totalPrice: total + deliveryFee })
+    );
+    setShowConfirm((pre) => !pre);
+  };
 
   return (
     <section className="container my-lg-6">
+      {showConfirm && (
+        <Confirm onClose={onClose} setShowConfirm={setShowConfirm} />
+      )}
       <div className="row form-group needs-validation" onSubmit={handleSubmit}>
         <form className="col-lg-8">
           <div className="negative-row-margin mx-lg-0">
@@ -49,7 +67,7 @@ export default function Invoice() {
               </div>
 
               <nav className="nav nav-pills nav-fill nav-dark mb-5">
-                <a className="nav-item nav-link py-3 h4 active" href="#">
+                <a className="nav-item nav-link py-3 h4 active" href="#!">
                   電子發票
                 </a>
               </nav>
@@ -62,15 +80,15 @@ export default function Invoice() {
                   type="email"
                   className={
                     "form-control form-control-lg bg-primary-lighter" +
-                    inputClasses
+                    isShowErrorBorder(emailIsError)
                   }
                   id="email"
                   placeholder="example@email.com"
-                  onChange={onChangeValue}
-                  onBlur={onBlurValue}
-                  value={value}
+                  value={email}
+                  onChange={onChangeEmail}
+                  onBlur={onBlurEmail}
                 />
-                {isError && (
+                {emailIsError && (
                   <div style={{ color: "#F17C67" }}>電子信箱格式錯誤</div>
                 )}
               </div>
@@ -80,10 +98,19 @@ export default function Invoice() {
                 </label>
                 <input
                   type="text"
-                  className="form-control form-control-lg bg-primary-lighter"
+                  className={
+                    "form-control form-control-lg bg-primary-lighter" +
+                    isShowErrorBorder(taxNumberIsError)
+                  }
                   id="vat-number"
                   placeholder="12345678"
+                  value={taxNumber}
+                  onChange={onChangeTaxNumber}
+                  onBlur={onBlurTaxNumber}
                 />
+                {taxNumberIsError && (
+                  <div style={{ color: "#F17C67" }}>統一編號格式錯誤</div>
+                )}
               </div>
             </div>
           </div>
@@ -92,6 +119,7 @@ export default function Invoice() {
             <button
               className="btn btn-accent btn-block btn-lg py-3 text-primary"
               type="submit"
+              disabled={!getIsAllValid}
             >
               下一步
             </button>

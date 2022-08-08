@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import useCart from "../../hooks/useCart";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/reducers/authSlice";
@@ -7,7 +7,6 @@ import { logout } from "../../store/reducers/authSlice";
 export default function Header() {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { totalAmount } = useCart();
 
   return (

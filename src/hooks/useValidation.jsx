@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { onBlur, onInput, reset } from "../store/reducers/inputSlice";
 
 export default function useValidation(validateFuntion) {
-  const input = useSelector((state) => state.input);
   //   console.log(input);
   const dispatch = useDispatch();
 
@@ -16,7 +14,6 @@ export default function useValidation(validateFuntion) {
   const isError = !isValid && isTouched; // 當 isValid 為 false，且失焦時 isError 為 true
 
   const onChangeValue = (e) => {
-    console.log(e.target.value);
     e.preventDefault();
     setInputValue(e.target.value);
     // dispatch(onInput(e.target.value));

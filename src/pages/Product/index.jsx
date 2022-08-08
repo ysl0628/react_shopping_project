@@ -26,7 +26,7 @@ export default function Product() {
           <div
             className="header-main-image bg-cover"
             style={{
-              backgroundImage: `url(https://images.unsplash.com/photo-1512484457149-266d165a4eca?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=786581a33fd6c9343735655439ce2e5a&auto=format&fit=crop&w=1380&q=80)`,
+              backgroundImage: `url(https://images.pexels.com/photos/4040806/pexels-photo-4040806.jpeg)`,
             }}
           ></div>
           <h1 className="text-hide">

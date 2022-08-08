@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import OrderList from "../../../components/Checkout/OderList";
 import Summary from "../../../components/Checkout/Summary";
+import { onPaymentInput } from "../../../store/reducers/orderSlice";
 import "./index.css";
 import usePaymentValidation from "./usePaymentValidation";
 
@@ -26,6 +28,7 @@ const isShowErrorBorder = (isError) => (isError ? "border border-danger" : "");
 
 export default function Payment() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const {
     card,
     cardError,
@@ -49,6 +52,7 @@ export default function Payment() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!getIsAllValid()) return;
+    dispatch(onPaymentInput(getIsAllValid()));
     navigate("/cart/invoice");
   };
 
@@ -77,18 +81,24 @@ export default function Payment() {
                 <label className="h4" htmlFor="credit">
                   信用卡卡號
                 </label>
-                <div className="input-group input-group-lg mb-3">
+                <div className="input-group input-group-lg">
                   <input
                     type="text"
-                    className="form-control bg-primary-lighter border-right-0"
+                    className={
+                      "form-control bg-primary-lighter border-right-0 " +
+                      isShowErrorBorder(cardError)
+                    }
                     id="credit"
                     placeholder="9012 3456 7890 1234"
-                    onInput={onChangeCard}
+                    onInput={(e) => {
+                      e.target.value = e.target.value
+                        .replace(/\D/gi, "")
+                        .replace(/(.{4})/g, "$1 ")
+                        .trim();
+                    }}
+                    value={card}
+                    onChange={onChangeCard}
                     onBlur={onBlurCard}
-                    value={card
-                      .replace(/\W/gi, "")
-                      .replace(/(.{4})/g, "$1 ")
-                      .trim()}
                     maxLength={"19"}
                   />
 

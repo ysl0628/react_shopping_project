@@ -1,62 +1,51 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import useValidation from "../../../hooks/useValidation";
 import OrderList from "../../../components/Checkout/OderList";
 import Summary from "../../../components/Checkout/Summary";
+import { useDispatch } from "react-redux";
+import { onDeliveryInput } from "../../../store/reducers/orderSlice";
+import useDeliveryValidation from "./useDeliveryValidation";
 
-const phoneRule = /^09\d{8}$/;
-
-const isNotEmpty = (value) => value.trim() !== "";
-const isPhoneFormat = (value) => phoneRule.test(value);
+const isShowErrorBorder = (isError) => (isError ? "border border-danger" : "");
 
 export default function Delivery() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const {
-    value: lastname,
-    isValid: lastnameIsValid,
-    isError: lastnameError,
-    onChangeValue: onChangeLastname,
-    onBlurValue: onBlurLastname,
-  } = useValidation(isNotEmpty);
-  const {
-    value: firstname,
-    isValid: firstnameIsValid,
-    isError: firstnameError,
-    onChangeValue: onChangeFirstname,
-    onBlurValue: onBlurFirstname,
-  } = useValidation(isNotEmpty);
-  const {
-    value: address,
-    isValid: addressIsValid,
-    isError: addressError,
-    onChangeValue: onChangeAddress,
-    onBlurValue: onBlurAddress,
-  } = useValidation(isNotEmpty);
-  const {
-    value: phone,
-    isValid: phoneIsValid,
-    isError: phoneError,
-    onChangeValue: onChangePhone,
-    onBlurValue: onBlurPhone,
-  } = useValidation(isPhoneFormat);
+    address,
+    addressError,
+    onChangeAddress,
+    onBlurAddress,
+    city,
+    onChangeCity,
+    onBlurCity,
+    cityError,
+    region,
+    onChangeRegion,
+    onBlurRegion,
+    regionError,
+    lastname,
+    lastnameError,
+    onChangeLastname,
+    onBlurLastname,
+    firstname,
+    firstnameError,
+    onChangeFirstname,
+    onBlurFirstname,
+    phone,
+    phoneError,
+    onChangePhone,
+    onBlurPhone,
+    getIsAllValid,
+  } = useDeliveryValidation();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (
-      !lastnameIsValid ||
-      !firstnameIsValid ||
-      !addressIsValid ||
-      !phoneIsValid
-    )
-      return;
+    if (!getIsAllValid()) return;
+    dispatch(onDeliveryInput({ phone, address: city + region + address }));
     navigate("/cart/payment");
   };
-
-  const lastnameInputClasses = lastnameError ? "border border-danger" : "";
-  const firstnameInputClasses = firstnameError ? "border border-danger" : "";
-  const addressInputClasses = addressError ? "border border-danger" : "";
-  const phoneInputClasses = phoneError ? "border border-danger" : "";
 
   return (
     <section className="container my-lg-6">
@@ -87,7 +76,7 @@ export default function Delivery() {
                       type="text"
                       className={
                         "form-control form-control-lg bg-primary-lighter" +
-                        lastnameInputClasses
+                        isShowErrorBorder(lastnameError)
                       }
                       id="lastname"
                       placeholder="王"
@@ -109,7 +98,7 @@ export default function Delivery() {
                       type="text"
                       className={
                         "form-control form-control-lg bg-primary-lighter" +
-                        firstnameInputClasses
+                        isShowErrorBorder(firstnameError)
                       }
                       id="firstname"
                       placeholder="小明"
@@ -132,7 +121,7 @@ export default function Delivery() {
                   type="tel"
                   className={
                     "form-control form-control-lg bg-primary-lighter" +
-                    phoneInputClasses
+                    isShowErrorBorder(phoneError)
                   }
                   id="tel"
                   placeholder="0912345678"
@@ -155,9 +144,16 @@ export default function Delivery() {
                       name=""
                       id="city"
                       className="form-control form-control-lg bg-primary-lighter"
+                      value={city}
+                      onChange={onChangeCity}
+                      onBlur={onBlurCity}
                     >
+                      <option value="0">選擇城市</option>
                       <option value="高雄市">高雄市</option>
                     </select>
+                    {cityError && (
+                      <div style={{ color: "#F17C67" }}>請選擇城市</div>
+                    )}
                   </div>
                 </div>
                 <div className="col-6">
@@ -166,9 +162,16 @@ export default function Delivery() {
                       name=""
                       id="region"
                       className="form-control form-control-lg bg-primary-lighter"
+                      value={region}
+                      onChange={onChangeRegion}
+                      onBlur={onBlurRegion}
                     >
+                      <option value="0">選擇行政區</option>
                       <option value="新興區">新興區</option>
                     </select>
+                    {regionError && (
+                      <div style={{ color: "#F17C67" }}>請選擇行政區</div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -177,7 +180,7 @@ export default function Delivery() {
                   type="text"
                   className={
                     "form-control form-control-lg bg-primary-lighter" +
-                    addressInputClasses
+                    isShowErrorBorder(addressError)
                   }
                   style={{ width: "100%" }}
                   id="address"
@@ -197,12 +200,7 @@ export default function Delivery() {
             <button
               className="btn btn-accent btn-block btn-lg py-3 text-primary"
               type="submit"
-              disabled={
-                !lastnameIsValid ||
-                !firstnameIsValid ||
-                !addressIsValid ||
-                !phoneIsValid
-              }
+              disabled={!getIsAllValid}
             >
               下一步
             </button>

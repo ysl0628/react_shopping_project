@@ -1,4 +1,3 @@
-import React from "react";
 import useValidation from "../../../hooks/useValidation";
 
 const creditRule = /^\d{4}\s\d{4}\s\d{4}\s\d{4}$/;

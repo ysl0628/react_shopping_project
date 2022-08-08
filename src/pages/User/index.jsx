@@ -12,7 +12,6 @@ export default function User() {
   useEffect(() => {
     if (!isSuccess) return;
     setOrders(user.orders);
-    console.log("user", user.orders);
   }, [user, isSuccess]);
 
   return (

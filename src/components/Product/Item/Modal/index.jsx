@@ -1,5 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../../store/reducers/cartSlice";
 import Backdrop from "../../../../UI/Backdrop";

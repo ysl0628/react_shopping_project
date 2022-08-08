@@ -70,7 +70,7 @@ $colors: map-merge(
   $colors
 );
 
-$primary:       #1d3956; //#3F5D45; //$blue !default;
+$primary:       #274E77; //#3F5D45; //$blue !default;
 $secondary:     $gray-600 !default;
 $success:       $green !default;
 $info:          $cyan !default;
@@ -84,7 +84,7 @@ $theme-colors: () !default;
 $theme-colors: map-merge(
   (
     "primary":    $primary,
-    "accent":     #ebaf30, //FFE180,
+    "accent":     #FEE694,  //ebaf30, //FFE180,
     "secondary":  $secondary,
     "success":    $success,
     "info":       $info,
@@ -97,8 +97,8 @@ $theme-colors: map-merge(
 );
 
 // light theme color
-$primary-200: #dae0e6;  //EAF0ED;
-$primary-500: #577394;//#8DA291;
+$primary-200: #e4e9ed;  //EAF0ED;
+$primary-500: #6685A6;//#8DA291;
 
 // Set a specific jump point for requesting color jumps
 $theme-color-interval:      8% !default;

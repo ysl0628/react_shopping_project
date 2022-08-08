@@ -12,24 +12,24 @@ export default function Home() {
           <div
             className="header-main-image bg-cover"
             style={{
-              backgroundImage: `url(https://images.unsplash.com/photo-1473256599800-b48c7c88cd7e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ae0d68ab0db4ee79bdce92722b31112b&auto=format&fit=crop&w=925&q=80)`,
+              backgroundImage: `url(https://images.pexels.com/photos/4686833/pexels-photo-4686833.jpeg)`,
             }}
           ></div>
           <h1 className="text-hide">六角甜點工坊</h1>
           <div className="row no-gutters justify-content-center rectangle-section">
             <div className="col-md-10">
               <div className="row no-gutters">
-                <a className="col-4 rectangle-image-wrap">
+                <a href="#!" className="col-4 rectangle-image-wrap">
                   <span className="rectangle-text">本日精選</span>
                   <div className="four-sides rectangle-over zindex--1"></div>
                   <div
                     className="rectangle-image bg-cover"
                     style={{
-                      backgroundImage: `url(https://images.unsplash.com/photo-1504473089979-b1c4993a9653?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9db69b72e1f7d1b4e5c81cee531108ff&auto=format&fit=crop&w=634&q=80)`,
+                      backgroundImage: `url(https://images.pexels.com/photos/1543800/pexels-photo-1543800.jpeg)`,
                     }}
                   ></div>
                 </a>
-                <a className="col-4 rectangle-image-wrap">
+                <a href="#!" className="col-4 rectangle-image-wrap">
                   <span className="rectangle-text">人氣推薦</span>
                   <div className="four-sides rectangle-over zindex--1"></div>
                   <div
@@ -39,7 +39,7 @@ export default function Home() {
                     }}
                   ></div>
                 </a>
-                <a className="col-4 rectangle-image-wrap">
+                <a href="#!" className="col-4 rectangle-image-wrap">
                   <span className="rectangle-text">新品上市</span>
                   <div className="four-sides rectangle-over zindex--1"></div>
                   <div
@@ -73,7 +73,7 @@ export default function Home() {
                 <div
                   className="bg-cover h-100 section-intro-image"
                   style={{
-                    backgroundImage: `url(https://images.unsplash.com/photo-1519730722595-a5ff788dea4d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2712a33fe9b13532f0682ac4e1e749b8&auto=format&fit=crop&w=634&q=80)`,
+                    backgroundImage: `url(https://images.pexels.com/photos/1543800/pexels-photo-1543800.jpeg)`,
                   }}
                 ></div>
               </div>
@@ -117,7 +117,7 @@ export default function Home() {
                 <div
                   className="bg-cover h-100 section-intro-image"
                   style={{
-                    backgroundImage: `url(https://images.unsplash.com/photo-1497052254059-f3e0bf1a5133?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ce7267675921fc7e41b5610f49750a40&auto=format&fit=crop&w=685&q=80)`,
+                    backgroundImage: `url(https://images.pexels.com/photos/3913295/pexels-photo-3913295.jpeg)`,
                   }}
                 ></div>
               </div>

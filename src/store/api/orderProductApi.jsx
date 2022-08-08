@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 
-const orderApi = createApi({
-  reducerPath: "orderApi",
+const orderProductApi = createApi({
+  reducerPath: "orderProductApi",
   // 指定查詢的基礎訊息，發送請求使用的工具，此工具也需一個對象
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:1337/api/",
@@ -14,15 +14,13 @@ const orderApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["order"], // 指定 Api 中的標籤類型
+  tagTypes: ["orderProduct"], // 指定 Api 中的標籤類型
   endpoints(build) {
     return {
-      // get 獲取列表
-      getOrders: build.query({
+      getOrderProducts: build.query({
         query() {
           return {
-            // ?populate=* 取得 api image 屬性
-            url: `orders?populate=*`, // 會與 baseUrl 拼接成 'http://localhost:1337/api/orders'
+            url: `orders?populate=*`,
           };
         },
         // transformResponse 用來轉換響應數據的格式
@@ -33,24 +31,24 @@ const orderApi = createApi({
           };
           // App.js 中 useGetordersQuery() 可直接調用 data
         },
-        providesTags: [{ type: "order", id: "LIST" }], // 為getorders掛上標籤，當'orders'標籤失效時，會重新加載數據
+        providesTags: [{ type: "orderProduct", id: "LIST" }], // 為getorders掛上標籤，當'orders'標籤失效時，會重新加載數據
       }),
-      // post 增加商品
-      addOrder: build.mutation({
-        query(order) {
+      addOrderProduct: build.mutation({
+        query(product) {
           return {
-            url: "orders",
+            url: "order-products",
             method: "post",
-            body: { data: order },
+            body: { data: product },
           };
         },
-        invalidatesTags: [{ type: "order", id: "LIST" }],
+        invalidatesTags: [{ type: "orderProduct", id: "LIST" }],
         // 當addorder執行時會使'orders'標籤失效，getorders中'orders'標籤也失效
       }),
     };
   },
 });
 
-export const { useGetOrdersQuery, useAddOrderMutation } = orderApi;
+export const { useGetOrderProductsQuery, useAddOrderProductMutation } =
+  orderProductApi;
 
-export default orderApi;
+export default orderProductApi;

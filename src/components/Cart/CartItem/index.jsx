@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   removeFromCart,
   modifyToCart,
@@ -10,7 +10,6 @@ export default function CartItem({ product }) {
   const dispatch = useDispatch();
   return (
     <>
-      {" "}
       <div className="cart-row d-flex flex-column flex-md-row py-3">
         <div className="d-flex align-items-center flex-grow-1 mr-md-3">
           <div className="my-4 mr-4 flex-grow-1 flex-md-grow-0">

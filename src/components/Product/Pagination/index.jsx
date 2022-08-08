@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import useDataBase from "../../../hooks/useDataBase";
 import { addPage, setPage, subPage } from "../../../store/reducers/pageSlice";
 
 export default function Pagination({ pagination }) {
