@@ -9,14 +9,16 @@ import { useSelector } from "react-redux";
 export default function Product() {
   const [status, setStatus] = useState("all");
   const { products: data, page, success } = useDataBase();
+  const dataOnSale = data.filter((item) => item.onSale === true);
   const { products: dataAll } = useCategory();
+  const dataAllOnSale = dataAll.filter((item) => item.onSale === true);
   const totalAmount = useSelector((state) => state.page.totalAmount);
   const cart = useSelector((state) => state.cart.products);
   const today = new Date().getTime();
   const aWeek = 1000 * 60 * 60 * 24 * 8;
-  const dataSpecial = dataAll.filter((item) => item.special === true);
-  const dataBestSales = dataAll.filter((item) => item.sales >= 200);
-  const dataNew = dataAll.filter(
+  const dataSpecial = dataAllOnSale.filter((item) => item.special === true);
+  const dataBestSales = dataAllOnSale.filter((item) => item.sales >= 200);
+  const dataNew = dataAllOnSale.filter(
     (item) => today - new Date(item.launchAt).getTime() <= aWeek
   );
   return (
@@ -44,7 +46,7 @@ export default function Product() {
       <section className="container my-6">
         <div className="row">
           <Category
-            data={dataAll}
+            data={dataAllOnSale}
             dataSpecial={dataSpecial}
             dataBestSales={dataBestSales}
             dataNew={dataNew}
@@ -54,7 +56,7 @@ export default function Product() {
             <div className="row">
               {/* <!-- 產品 Start --> */}
               {status === "all" &&
-                data.map((product) => (
+                dataOnSale.map((product) => (
                   <Item key={product.id} item={product} cart={cart} />
                 ))}
               {status === "special" &&
