@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../store/reducers/cartSlice";
+import { serverUrl } from "../../../utlis/config";
 
 export default function Recommendation({ item }) {
   const dispatch = useDispatch();
@@ -10,17 +11,13 @@ export default function Recommendation({ item }) {
         <div
           className="item-image"
           style={{
-            backgroundImage: `url(http://localhost:1337${item.image})`,
+            backgroundImage: `url(${serverUrl}${item.image})`,
           }}
         >
           <div className="item-tag">本日精選</div>
           <div className="item-stared-icon">
             <label className="ui-checked-display">
               <input type="checkbox" className="ui-checkbox" />
-              {/* <i className="bi bi-heart-fill material-icons ui-show">
-                favorite
-              </i>
-              <i className="bi bi-heart material-icons ui-hidden">favorite</i> */}
               <i
                 className="fa-solid fa-heart ui-show"
                 style={{ color: "red", fontSize: "1.3rem" }}

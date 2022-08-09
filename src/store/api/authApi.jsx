@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { serverUrl } from "../../utlis/config";
 
 const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:1337/api/",
+    baseUrl: `${serverUrl}/api/`,
   }),
   endpoints(build) {
     return {

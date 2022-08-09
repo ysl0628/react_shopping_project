@@ -1,4 +1,5 @@
 import React from "react";
+import { serverUrl } from "../../../../utlis/config";
 
 export default function OrderItem({ item }) {
   return (
@@ -7,7 +8,7 @@ export default function OrderItem({ item }) {
         <div
           className="cart-image cart-image-sm mr-3"
           style={{
-            backgroundImage: `url(http://localhost:1337${item.image})`,
+            backgroundImage: `url(${serverUrl}${item.image})`,
           }}
         ></div>
         <div className="d-flex align-items-center">

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../../store/reducers/cartSlice";
 import Modal from "./Modal";
+import { serverUrl } from "../../../utlis/config";
 
 export default function Item({ item, cart }) {
   const [modal, setModal] = useState(false);
@@ -15,7 +16,7 @@ export default function Item({ item, cart }) {
         <div
           className="item-image"
           style={{
-            backgroundImage: `url(http://localhost:1337${item.image})`,
+            backgroundImage: `url(${serverUrl}${item.image})`,
           }}
         ></div>
         <div className="item-body d-flex text-center">

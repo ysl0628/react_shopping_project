@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../../store/reducers/cartSlice";
 import Backdrop from "../../../../UI/Backdrop";
-// import { Modal } from "bootstrap";
+import { serverUrl } from "../../../../utlis/config";
 
 export default function Modal({ close, item, setModal }) {
   const [selectAmount, setSelectAmount] = useState();
@@ -29,7 +29,7 @@ export default function Modal({ close, item, setModal }) {
               </button>
             </div>
             <img
-              src={`http://localhost:1337${item.image}`}
+              src={`${serverUrl}${item.image}`}
               style={{ maxWidth: "100%" }}
               className="card-img-top "
               alt="..."

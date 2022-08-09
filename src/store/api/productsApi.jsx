@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { serverUrl } from "../../utlis/config";
 
 const productsApi = createApi({
   reducerPath: "productsApi",
   // 指定查詢的基礎訊息，發送請求使用的工具，此工具也需一個對象
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:1337/api/",
+    baseUrl: `${serverUrl}/api/`,
     //用來統一設定請求頭
     prepareHeaders: (headers, { getState }) => {
       // 取得用戶的 token

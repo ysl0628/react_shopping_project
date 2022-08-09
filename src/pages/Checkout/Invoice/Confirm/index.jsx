@@ -6,6 +6,7 @@ import { useAddOrderMutation } from "../../../../store/api/orderApi";
 import { useAddOrderProductMutation } from "../../../../store/api/orderProductApi";
 import { removeAll } from "../../../../store/reducers/cartSlice";
 import Backdrop from "../../../../UI/Backdrop";
+import { serverUrl } from "../../../../utlis/config";
 
 export default function Confirm({ onClose, setShowConfirm }) {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ export default function Confirm({ onClose, setShowConfirm }) {
             title: product.title,
             amount: product.amount,
             price: product.price,
-            image_url: `http://localhost:1337${product.image}`,
+            image_url: `${serverUrl}${product.image}`,
             order: orderId,
           });
         });

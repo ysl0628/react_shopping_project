@@ -4,6 +4,7 @@ import {
   removeFromCart,
   modifyToCart,
 } from "../../../store/reducers/cartSlice";
+import { serverUrl } from "../../../utlis/config";
 
 export default function CartItem({ product }) {
   const perTotal = product.price * product.amount;
@@ -16,7 +17,7 @@ export default function CartItem({ product }) {
             <div
               className="cart-image"
               style={{
-                backgroundImage: `url("http://localhost:1337${product.image}")`,
+                backgroundImage: `url(${serverUrl}${product.image})`,
               }}
             ></div>
           </div>
