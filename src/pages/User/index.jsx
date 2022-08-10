@@ -15,7 +15,7 @@ export default function User() {
   }, [user, isSuccess]);
 
   return (
-    <div>
+    <div className="container px-0 px-md-3">
       <div className="flex-wrap justify-content-center mb-3">
         <h1 className="bg-primary-lighter h4 mb-0 py-4 px-5 text-start">
           您好，{username}

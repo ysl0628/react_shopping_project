@@ -52,9 +52,6 @@ export default function Category({
         >
           新品上市（{dataNew.length}）
         </button>
-        <button className="list-group-item list-group-item-action h4 disabled">
-          絕版品
-        </button>
       </div>
     </div>
   );
