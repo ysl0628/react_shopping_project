@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.0cafb696.css",
-    "main.js": "/static/js/main.61f487df.js",
-    "static/media/sm-今天是個吃甜點的好日子.svg": "/static/media/sm-今天是個吃甜點的好日子.109d0fea5437c4c47b95749d99fbf2f8.svg",
-    "static/media/cake_shop_logo@1.5x.svg": "/static/media/cake_shop_logo@1.5x.028118163c5678c65c9f5620957a04fc.svg",
-    "static/media/instagram_icon.svg": "/static/media/instagram_icon.dd3a5d2ac8ccce0cd061ebb992d8139d.svg",
-    "static/media/ic-yahoo.svg": "/static/media/ic-yahoo.61370f14517798cd90d7d4a78d23cd22.svg",
-    "static/media/ic-facebook-logotype.svg": "/static/media/ic-facebook-logotype.fa7ceeac78fd797ee01f8eadb475c7cd.svg",
-    "static/media/cake_icon.svg": "/static/media/cake_icon.8f2e8ba10f1fc0276a5d115cc95f8cab.svg",
-    "static/media/ic-google.svg": "/static/media/ic-google.f1280f6378fc0436d41e34de168d2158.svg",
-    "index.html": "/index.html",
-    "static/media/facebook_icon.svg": "/static/media/facebook_icon.34f5d407561fc9df4bb5f419789cc86a.svg",
-    "main.0cafb696.css.map": "/static/css/main.0cafb696.css.map",
-    "main.61f487df.js.map": "/static/js/main.61f487df.js.map"
+    "main.css": "/react_shopping_project/static/css/main.0cafb696.css",
+    "main.js": "/react_shopping_project/static/js/main.a8d6290c.js",
+    "static/media/sm-今天是個吃甜點的好日子.svg": "/react_shopping_project/static/media/sm-今天是個吃甜點的好日子.109d0fea5437c4c47b95749d99fbf2f8.svg",
+    "static/media/cake_shop_logo@1.5x.svg": "/react_shopping_project/static/media/cake_shop_logo@1.5x.028118163c5678c65c9f5620957a04fc.svg",
+    "static/media/instagram_icon.svg": "/react_shopping_project/static/media/instagram_icon.dd3a5d2ac8ccce0cd061ebb992d8139d.svg",
+    "static/media/ic-yahoo.svg": "/react_shopping_project/static/media/ic-yahoo.61370f14517798cd90d7d4a78d23cd22.svg",
+    "static/media/ic-facebook-logotype.svg": "/react_shopping_project/static/media/ic-facebook-logotype.fa7ceeac78fd797ee01f8eadb475c7cd.svg",
+    "static/media/cake_icon.svg": "/react_shopping_project/static/media/cake_icon.8f2e8ba10f1fc0276a5d115cc95f8cab.svg",
+    "static/media/ic-google.svg": "/react_shopping_project/static/media/ic-google.f1280f6378fc0436d41e34de168d2158.svg",
+    "index.html": "/react_shopping_project/index.html",
+    "static/media/facebook_icon.svg": "/react_shopping_project/static/media/facebook_icon.34f5d407561fc9df4bb5f419789cc86a.svg",
+    "main.0cafb696.css.map": "/react_shopping_project/static/css/main.0cafb696.css.map",
+    "main.a8d6290c.js.map": "/react_shopping_project/static/js/main.a8d6290c.js.map"
   },
   "entrypoints": [
     "static/css/main.0cafb696.css",
-    "static/js/main.61f487df.js"
+    "static/js/main.a8d6290c.js"
   ]
 }
