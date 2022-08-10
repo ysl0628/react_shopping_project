@@ -7,7 +7,7 @@ export default function Subscribe() {
         <div className="row justify-content-center">
           <div className="col-md-5 d-flex align-items-center justify-content-center justify-content-md-start mb-4 mb-md-0">
             <img
-              src={require("../../assets/images/logo-light.svg").default}
+              src={require("../../assets/images/cake_icon.svg").default}
               width="40"
               height="40"
               alt=""

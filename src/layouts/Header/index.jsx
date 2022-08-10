@@ -25,14 +25,14 @@ export default function Header() {
         </button>
         <Link className="navbar-brand" to={"home"}>
           <img
-            src={require("../../assets/images/logo-all-dark.svg").default}
+            src={require("../../assets/images/cake_shop_logo@1.5x.svg").default}
             width="220"
             height="40"
             alt=""
             className="d-none d-md-inline-block"
           />
           <img
-            src={require("../../assets/images/logotype-sm-dark.svg").default}
+            src={require("../../assets/images/cake_shop_logo@1.5x.svg").default}
             width="114"
             height="18"
             alt=""
