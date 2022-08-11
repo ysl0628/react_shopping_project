@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/react_shopping_project/static/css/main.0cafb696.css",
-    "main.js": "/react_shopping_project/static/js/main.a8d6290c.js",
+    "main.js": "/react_shopping_project/static/js/main.19bca895.js",
     "static/media/sm-今天是個吃甜點的好日子.svg": "/react_shopping_project/static/media/sm-今天是個吃甜點的好日子.109d0fea5437c4c47b95749d99fbf2f8.svg",
     "static/media/cake_shop_logo@1.5x.svg": "/react_shopping_project/static/media/cake_shop_logo@1.5x.028118163c5678c65c9f5620957a04fc.svg",
     "static/media/instagram_icon.svg": "/react_shopping_project/static/media/instagram_icon.dd3a5d2ac8ccce0cd061ebb992d8139d.svg",
@@ -12,10 +12,10 @@
     "index.html": "/react_shopping_project/index.html",
     "static/media/facebook_icon.svg": "/react_shopping_project/static/media/facebook_icon.34f5d407561fc9df4bb5f419789cc86a.svg",
     "main.0cafb696.css.map": "/react_shopping_project/static/css/main.0cafb696.css.map",
-    "main.a8d6290c.js.map": "/react_shopping_project/static/js/main.a8d6290c.js.map"
+    "main.19bca895.js.map": "/react_shopping_project/static/js/main.19bca895.js.map"
   },
   "entrypoints": [
     "static/css/main.0cafb696.css",
-    "static/js/main.a8d6290c.js"
+    "static/js/main.19bca895.js"
   ]
 }
