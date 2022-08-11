@@ -1,10 +1,10 @@
 import React from "react";
-import useDataBase from "../../hooks/useDataBase";
 import Recommendation from "../../components/Home/Recommendation";
+import useCategory from "../../hooks/useCategory";
 
 export default function Home() {
-  const { products: data } = useDataBase();
-  const dataSpecial = data.filter((item) => item.special === true);
+  const { products: dataAll } = useCategory();
+  const dataSpecial = dataAll.filter((item) => item.special).slice(0, 3);
   return (
     <div>
       <div className="container px-0 px-md-3">
