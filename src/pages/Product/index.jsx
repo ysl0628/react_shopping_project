@@ -6,24 +6,15 @@ import useCategory from "../../hooks/useCategory";
 import { useSelector } from "react-redux";
 
 export default function Product() {
-  const today = new Date().getTime();
-  const aWeek = 1000 * 60 * 60 * 24 * 8;
-  const [status, setStatus] = useState("all");
   const { products: dataAll } = useCategory();
   const { currentPage, pageSize } = useSelector((state) => state.page);
   const cart = useSelector((state) => state.cart.products);
+  const category = useSelector((state) => state.category);
+
   const dataOnSale = dataAll.filter((item) => item.onSale === true);
   const lastDataInPage = currentPage * pageSize;
   const firstDataInPage = lastDataInPage - pageSize;
   const dataToDisplay = dataOnSale.slice(firstDataInPage, lastDataInPage);
-
-  const dataSpecial = dataOnSale.filter((item) => item.special === true);
-  const dataBestSales = dataOnSale.filter((item) => item.sales >= 200);
-  const dataNew = dataOnSale.filter(
-    (item) => today - new Date(item.launchAt).getTime() <= aWeek
-  );
-  const category = useSelector((state) => state.category);
-  console.log(category.dataSource);
   const dataSourceDisplay = category.dataSource.slice(
     firstDataInPage,
     lastDataInPage
@@ -63,18 +54,6 @@ export default function Product() {
                 : dataSourceDisplay.map((product) => (
                     <Item key={product.id} item={product} cart={cart} />
                   ))}
-              {/* {status === "special" &&
-                dataSpecialDisplay.map((product) => (
-                  <Item key={product.id} item={product} cart={cart} />
-                ))}
-              {status === "bestSales" &&
-                dataBestSales.map((product) => (
-                  <Item key={product.id} item={product} cart={cart} />
-                ))}
-              {status === "new" &&
-                dataNew.map((product) => (
-                  <Item key={product.id} item={product} cart={cart} />
-                ))} */}
               {/* <!-- 產品 End --> */}
             </div>
             {(category.dataSource.length > 4 || category.status === "all") && (
