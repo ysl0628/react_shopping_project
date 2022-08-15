@@ -7,16 +7,20 @@ export const pageSlice = createSlice({
     pageSize: 4,
     currentPage: 1,
     initialPage: 1,
+    activeNumber: 1,
   },
   reducers: {
     addPage(state, action) {
       state.currentPage += 1;
+      state.activeNumber = action.payload;
     },
     subPage(state, action) {
       state.currentPage -= 1;
+      state.activeNumber = action.payload;
     },
     setPage(state, action) {
       state.currentPage = action.payload;
+      state.activeNumber = action.payload;
     },
     setAmount(state, action) {
       state.totalAmount = action.payload;
