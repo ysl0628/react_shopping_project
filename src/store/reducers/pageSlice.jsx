@@ -6,7 +6,6 @@ export const pageSlice = createSlice({
     totalAmount: 5,
     pageSize: 4,
     currentPage: 1,
-    totalPages: 5,
     initialPage: 1,
   },
   reducers: {

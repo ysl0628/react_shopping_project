@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import useDataBase from "../../hooks/useDataBase";
 import Item from "../../components/Product/Item";
 import Pagination from "../../components/Product/Pagination";
 import Category from "../../components/Product/Category";
@@ -7,18 +6,24 @@ import useCategory from "../../hooks/useCategory";
 import { useSelector } from "react-redux";
 
 export default function Product() {
-  const [status, setStatus] = useState("all");
-  const { products: data, page, success } = useDataBase();
-  const dataOnSale = data.filter((item) => item.onSale === true);
-  const { products: dataAll } = useCategory();
-  const dataAllOnSale = dataAll.filter((item) => item.onSale === true);
-  const totalAmount = useSelector((state) => state.page.totalAmount);
-  const cart = useSelector((state) => state.cart.products);
   const today = new Date().getTime();
   const aWeek = 1000 * 60 * 60 * 24 * 8;
-  const dataSpecial = dataAllOnSale.filter((item) => item.special === true);
-  const dataBestSales = dataAllOnSale.filter((item) => item.sales >= 200);
-  const dataNew = dataAllOnSale.filter(
+  const [status, setStatus] = useState("all");
+  const { products: dataAll } = useCategory();
+  const { totalAmount, currentPage, pageSize } = useSelector(
+    (state) => state.page
+  );
+  const cart = useSelector((state) => state.cart.products);
+  const dataOnSale = dataAll.filter((item) => item.onSale === true);
+  const lastDataInPage = currentPage * pageSize;
+  const firstDataInPage = lastDataInPage - pageSize;
+  const dataToDisplay = dataOnSale.slice(firstDataInPage, lastDataInPage);
+  console.log(dataToDisplay);
+
+  const dataSpecial = dataOnSale.filter((item) => item.special === true);
+  const dataSpecialDisplay = dataSpecial.slice(firstDataInPage, lastDataInPage);
+  const dataBestSales = dataOnSale.filter((item) => item.sales >= 200);
+  const dataNew = dataOnSale.filter(
     (item) => today - new Date(item.launchAt).getTime() <= aWeek
   );
   return (
@@ -46,7 +51,7 @@ export default function Product() {
       <section className="container my-6">
         <div className="row">
           <Category
-            data={dataAllOnSale}
+            data={dataOnSale}
             dataSpecial={dataSpecial}
             dataBestSales={dataBestSales}
             dataNew={dataNew}
@@ -56,11 +61,11 @@ export default function Product() {
             <div className="row">
               {/* <!-- 產品 Start --> */}
               {status === "all" &&
-                dataOnSale.map((product) => (
+                dataToDisplay.map((product) => (
                   <Item key={product.id} item={product} cart={cart} />
                 ))}
               {status === "special" &&
-                dataSpecial.map((product) => (
+                dataSpecialDisplay.map((product) => (
                   <Item key={product.id} item={product} cart={cart} />
                 ))}
               {status === "bestSales" &&
@@ -74,7 +79,7 @@ export default function Product() {
               {/* <!-- 產品 End --> */}
             </div>
             {totalAmount > 4 && (
-              <Pagination pagination={page} isSuccess={success} />
+              <Pagination data={dataOnSale} pageSize={pageSize} />
             )}
           </div>
         </div>

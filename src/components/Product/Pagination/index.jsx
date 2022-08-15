@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addPage, setPage, subPage } from "../../../store/reducers/pageSlice";
 
-export default function Pagination({ pagination }) {
+export default function Pagination({ data, pageSize }) {
   const [activeNumber, setActiveNumber] = useState(1);
   const dispatch = useDispatch();
   const pageInfo = useSelector((state) => state.page);
+  const totalPages = Math.ceil(data.length / pageSize);
   const pageNumbers = [];
-  if (!pagination) return;
-  for (let n = 1; n <= Math.ceil(pagination.totalPages); n++) {
+  if (!data) return;
+  for (let n = 1; n <= totalPages; n++) {
     pageNumbers.push(n);
   }
   return (
@@ -58,7 +59,7 @@ export default function Pagination({ pagination }) {
             className="page-link"
             href="#"
             aria-label="Next"
-            disabled={pageInfo.currentPage === pagination.totalPages}
+            disabled={pageInfo.currentPage === totalPages}
           >
             <span aria-hidden="true">&raquo;</span>
             <span className="sr-only">Next</span>
