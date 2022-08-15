@@ -23,7 +23,7 @@ const userApi = createApi({
         query(id) {
           return {
             // ?populate=* 取得 api image 屬性
-            url: `users/${id}?populate[orders][populate][0]=products`, // 會與 baseUrl 拼接成 'http://localhost:1337/api/users'
+            url: `users/${id}?populate[orders][populate][0]=products`,
           };
         },
         transformResponse(baseQueryReturnValue) {

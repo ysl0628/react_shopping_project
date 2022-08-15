@@ -23,7 +23,7 @@ const orderApi = createApi({
         query() {
           return {
             // ?populate=* 取得 api image 屬性
-            url: `orders?populate=*`, // 會與 baseUrl 拼接成 'http://localhost:1337/api/orders'
+            url: `orders?populate=*`,
           };
         },
         // transformResponse 用來轉換響應數據的格式
