@@ -24,8 +24,8 @@ export default function Category() {
       <div className="list-group text-center">
         <button
           onClick={() => {
-            dispatch(setStatus({ status: "all", dataSource: dataOnSale }));
             dispatch(setPage(1), setAmount(dataOnSale.length));
+            dispatch(setStatus({ status: "all", dataSource: dataOnSale }));
           }}
           className={`list-group-item list-group-item-action h4 `}
         >
@@ -33,8 +33,8 @@ export default function Category() {
         </button>
         <button
           onClick={() => {
-            dispatch(setStatus({ status: "special", dataSource: dataSpecial }));
             dispatch(setPage(1), setAmount(dataSpecial.length));
+            dispatch(setStatus({ status: "special", dataSource: dataSpecial }));
           }}
           className="list-group-item list-group-item-action h4"
         >
@@ -42,10 +42,10 @@ export default function Category() {
         </button>
         <button
           onClick={() => {
+            dispatch(setPage(1), setAmount(dataBestSales.length));
             dispatch(
               setStatus({ status: "bestSales", dataSource: dataBestSales })
             );
-            dispatch(setPage(1), setAmount(dataBestSales.length));
           }}
           className="list-group-item list-group-item-action h4"
         >
@@ -53,8 +53,8 @@ export default function Category() {
         </button>
         <button
           onClick={() => {
-            dispatch(setStatus({ status: "new", dataSource: dataNew }));
             dispatch(setPage(1), setAmount(dataNew.length));
+            dispatch(setStatus({ status: "new", dataSource: dataNew }));
           }}
           className="list-group-item list-group-item-action h4"
         >
