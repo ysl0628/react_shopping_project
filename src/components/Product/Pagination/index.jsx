@@ -18,7 +18,7 @@ export default function Pagination({ data, pageSize }) {
         <li className="page-item">
           <button
             onClick={() => {
-              dispatch(subPage());
+              dispatch(subPage(pageInfo.currentPage - 1));
               setActiveNumber(pageInfo.currentPage - 1);
             }}
             className="page-link"
@@ -33,7 +33,9 @@ export default function Pagination({ data, pageSize }) {
         {pageNumbers.map((number, index) => (
           <li
             //判斷
-            className={`page-item ${number === activeNumber ? "active" : ""}`}
+            className={`page-item ${
+              number === pageInfo.activeNumber ? "active" : ""
+            }`}
             key={index + 1}
           >
             <button
@@ -53,7 +55,7 @@ export default function Pagination({ data, pageSize }) {
         <li className="page-item">
           <button
             onClick={() => {
-              dispatch(addPage());
+              dispatch(addPage(pageInfo.currentPage + 1));
               setActiveNumber(pageInfo.currentPage + 1);
             }}
             className="page-link"

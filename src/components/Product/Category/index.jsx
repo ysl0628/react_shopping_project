@@ -1,15 +1,21 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { setAmount } from "../../../store/reducers/pageSlice";
+import { useDispatch, useSelector } from "react-redux";
+import useCategory from "../../../hooks/useCategory";
+import { setStatus } from "../../../store/reducers/categorySlice";
+import { setAmount, setPage } from "../../../store/reducers/pageSlice";
 
-export default function Category({
-  data,
-  dataSpecial,
-  dataBestSales,
-  dataNew,
-  onSortSetStatus,
-}) {
+export default function Category() {
+  const today = new Date().getTime();
+  const aWeek = 1000 * 60 * 60 * 24 * 8;
+  const { products: dataAll } = useCategory();
+  const dataOnSale = dataAll.filter((item) => item.onSale === true);
+  const dataSpecial = dataOnSale.filter((item) => item.special === true);
+  const dataBestSales = dataOnSale.filter((item) => item.sales >= 200);
+  const dataNew = dataOnSale.filter(
+    (item) => today - new Date(item.launchAt).getTime() <= aWeek
+  );
   const dispatch = useDispatch();
+
   return (
     <div className="col-md-4 mb-5">
       <h2 className="mb-0 py-3 text-center bg-primary text-white h4">
@@ -18,17 +24,17 @@ export default function Category({
       <div className="list-group text-center">
         <button
           onClick={() => {
-            onSortSetStatus("all");
-            dispatch(setAmount(data.length));
+            dispatch(setStatus({ status: "all", dataSource: dataOnSale }));
+            dispatch(setPage(1), setAmount(dataOnSale.length));
           }}
           className={`list-group-item list-group-item-action h4 `}
         >
-          所有甜點（{data.length}）
+          所有甜點（{dataOnSale.length}）
         </button>
         <button
           onClick={() => {
-            onSortSetStatus("special");
-            dispatch(setAmount(dataSpecial.length));
+            dispatch(setStatus({ status: "special", dataSource: dataSpecial }));
+            dispatch(setPage(1), setAmount(dataSpecial.length));
           }}
           className="list-group-item list-group-item-action h4"
         >
@@ -36,8 +42,10 @@ export default function Category({
         </button>
         <button
           onClick={() => {
-            onSortSetStatus("bestSales");
-            dispatch(setAmount(dataBestSales.length));
+            dispatch(
+              setStatus({ status: "bestSales", dataSource: dataBestSales })
+            );
+            dispatch(setPage(1), setAmount(dataBestSales.length));
           }}
           className="list-group-item list-group-item-action h4"
         >
@@ -45,8 +53,8 @@ export default function Category({
         </button>
         <button
           onClick={() => {
-            onSortSetStatus("new");
-            dispatch(setAmount(dataNew.length));
+            dispatch(setStatus({ status: "new", dataSource: dataNew }));
+            dispatch(setPage(1), setAmount(dataNew.length));
           }}
           className="list-group-item list-group-item-action h4"
         >
