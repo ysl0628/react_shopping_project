@@ -6,14 +6,6 @@ const productsApi = createApi({
   // 指定查詢的基礎訊息，發送請求使用的工具，此工具也需一個對象
   baseQuery: fetchBaseQuery({
     baseUrl: `${serverUrl}/api/`,
-    //用來統一設定請求頭
-    prepareHeaders: (headers, { getState }) => {
-      // 取得用戶的 token
-      const token = getState().auth.token;
-      if (!token) return;
-      headers.set("Authorization", `Bearer ${token}`);
-      return headers;
-    },
   }),
   tagTypes: ["products"], // 指定 Api 中的標籤類型
   endpoints(build) {
