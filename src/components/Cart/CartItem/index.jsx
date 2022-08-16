@@ -51,9 +51,9 @@ export default function CartItem({ product }) {
           </div>
         </div>
 
-        <div className="price ml-md-auto align-items-center py-3 justify-content-end d-flex flex-md-row-reverse">
+        <div className="price ml-md-auto align-items-center py-3 justify-content-between d-flex flex-md-row-reverse">
           <button
-            className="btn d-none d-md-block"
+            className="btn d-block d-md-block"
             onClick={() => dispatch(removeFromCart(product))}
           >
             <span className="material-icons">
