@@ -88,8 +88,7 @@ sequenceDiagram
     Note over Local Storage: 清除購物車商品
     option 訂購失敗
     Local Storage-->Local Storage: 保留購物車商品
-    end 
-    
+    end
 ```
 
 ## Demo
