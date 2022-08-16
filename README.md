@@ -90,6 +90,16 @@ sequenceDiagram
         Local Storage-->Local Storage: 保留購物車商品
     end
 ```
+```mermaid
+sequenceDiagram
+    critical Establish a connection to the DB
+        Service-->DB: connect
+    option Network timeout
+        Service-->Service: Log error
+    option Credentials rejected
+        Service-->Service: Log different error
+    end
+```
 
 ## Demo
 - 商品頁面彈跳視窗：
