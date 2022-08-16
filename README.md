@@ -72,22 +72,22 @@ flowchart LR
 
 ### 購物車頁面、結帳頁面
 ```mermaid
-sequenceDiagram;
-    participant Client;
-    participant Local Storage;
-    participant Server;
+sequenceDiagram
+    participant Client
+    participant Local Storage
+    participant Server
 
-    Note over Client: 使用者將商品加入購物車中;
-    Client->>+Local Storage: 購物車商品;
-    Note over Client,Local Storage: 頁面刷新;
-    Local Storage->>-Client: 購物車商品;
-    Note over Client,Server: 結帳;
-    critical 訂購成功;
-    Client->>Server:購物車商品;
-    Client->>Server:訂購資訊;
-    Note over Local Storage: 清除購物車商品;
-    option 訂購失敗;
-    Local Storage-->Local Storage: 保留購物車商品;
+    Note over Client: 使用者將商品加入購物車中
+    Client->>+Local Storage: 購物車商品
+    Note over Client,Local Storage: 頁面刷新
+    Local Storage->>-Client: 購物車商品
+    Note over Client,Server: 結帳
+    alt Order success
+        Client->>Server: 購物車商品
+        Client->>Server: 訂購資訊
+        Note over Local Storage: 清除購物車商品
+    else Order fail
+        Local Storage-->Local Storage: 保留購物車商品
     end
 ```
 
