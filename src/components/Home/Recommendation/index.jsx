@@ -26,8 +26,6 @@ export default function Recommendation({ item }) {
                 className="fa-solid fa-heart text-primary-lighter ui-hidden"
                 style={{ fontSize: "1.3rem" }}
               ></i>
-              {/* <i className="material-icons ui-show">favorite</i> */}
-              {/* <i className="material-icons ui-hidden">favorite_border</i> */}
             </label>
           </div>
         </div>
