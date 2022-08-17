@@ -17,6 +17,7 @@ export default function useCategory() {
       special: product.attributes.special,
       sales: product.attributes.sales,
       launchAt: product.attributes?.launchAt,
+      description: product.attributes?.description,
     }));
     setProducts(product);
     setSuccess(isSuccess);
