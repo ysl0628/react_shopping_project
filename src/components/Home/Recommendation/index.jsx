@@ -35,8 +35,7 @@ export default function Recommendation({ item }) {
           <div className="item-name col">{item.title}</div>
           <strong className="item-price col">NT$ {item.price}</strong>
         </div>
-        <a
-          href="!#"
+        <button
           className="btn-lg btn-primary-lighter btn btn-block"
           onClick={() => {
             dispatch(addToCart({ ...item, amount: 1 }));
@@ -44,7 +43,7 @@ export default function Recommendation({ item }) {
           }}
         >
           加入購物車
-        </a>
+        </button>
       </div>
     </div>
   );
