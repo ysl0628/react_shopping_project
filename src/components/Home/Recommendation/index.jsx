@@ -36,7 +36,7 @@ export default function Recommendation({ item }) {
           <strong className="item-price col">NT$ {item.price}</strong>
         </div>
         <a
-          href="#!"
+          href="!#"
           className="btn-lg btn-primary-lighter btn btn-block"
           onClick={() => {
             dispatch(addToCart({ ...item, amount: 1 }));
