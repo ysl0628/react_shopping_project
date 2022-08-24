@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addPage, setPage, subPage } from "../../../store/reducers/pageSlice";
 
 export default function Pagination({ data, pageSize }) {
-  const [activeNumber, setActiveNumber] = useState(1);
   const dispatch = useDispatch();
   const pageInfo = useSelector((state) => state.page);
   const totalPages = Math.ceil(data.length / pageSize);
@@ -19,7 +18,6 @@ export default function Pagination({ data, pageSize }) {
           <button
             onClick={() => {
               dispatch(subPage(pageInfo.currentPage - 1));
-              setActiveNumber(pageInfo.currentPage - 1);
             }}
             className="page-link"
             href="#"
@@ -41,7 +39,6 @@ export default function Pagination({ data, pageSize }) {
             <button
               onClick={() => {
                 dispatch(setPage(number));
-                setActiveNumber(number);
               }}
               className="page-link"
               href="#"
@@ -56,7 +53,6 @@ export default function Pagination({ data, pageSize }) {
           <button
             onClick={() => {
               dispatch(addPage(pageInfo.currentPage + 1));
-              setActiveNumber(pageInfo.currentPage + 1);
             }}
             className="page-link"
             href="#"
