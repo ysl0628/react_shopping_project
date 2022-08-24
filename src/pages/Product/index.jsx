@@ -56,7 +56,7 @@ export default function Product() {
                   ))}
               {/* <!-- 產品 End --> */}
             </div>
-            {(category.dataSource.length > 4 || category.status === "all") && (
+            {(category.dataSource.length > 4 || dataOnSale.length > 4) && (
               <Pagination
                 data={
                   category.status === "all" ? dataOnSale : category.dataSource
