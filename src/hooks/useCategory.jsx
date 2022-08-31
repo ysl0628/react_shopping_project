@@ -6,6 +6,7 @@ export default function useCategory() {
   const [products, setProducts] = useState([]);
   const [success, setSuccess] = useState();
   useEffect(() => {
+    console.log("render");
     if (!isSuccess) return;
     const product = data.data.map((product) => ({
       key: product.id,

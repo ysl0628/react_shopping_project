@@ -31,9 +31,7 @@ export default function Confirm({ onClose, setShowConfirm }) {
           user: id,
         });
         if (res.error) throw Error(res.error);
-        console.log(res);
         const orderId = res.data.data.id;
-        console.log(orderId);
         cart.forEach(async (product) => {
           const res = await addOrderProduct({
             title: product.title,
@@ -42,6 +40,7 @@ export default function Confirm({ onClose, setShowConfirm }) {
             image_url: `${serverUrl}${product.image}`,
             order: orderId,
           });
+          if (res.error) throw Error(res.error);
         });
         navigate("/cart/success");
         dispatch(removeAll());

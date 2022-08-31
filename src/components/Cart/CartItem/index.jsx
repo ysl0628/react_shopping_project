@@ -7,6 +7,7 @@ import {
 import { serverUrl } from "../../../utlis/config";
 
 export default function CartItem({ product }) {
+  console.log(product);
   const perTotal = product.price * product.amount;
   const dispatch = useDispatch();
   return (

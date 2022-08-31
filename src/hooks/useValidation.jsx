@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 export default function useValidation(validateFuntion) {
   //   console.log(input);
-  const dispatch = useDispatch();
 
   const [inputValue, setInputValue] = useState("");
   const [isTouched, setIsTouched] = useState(false);
@@ -16,16 +15,13 @@ export default function useValidation(validateFuntion) {
   const onChangeValue = (e) => {
     e.preventDefault();
     setInputValue(e.target.value);
-    // dispatch(onInput(e.target.value));
   };
   const onBlurValue = () => {
     setIsTouched(true);
-    // dispatch(onBlur());
   };
   const onReset = () => {
     setInputValue("");
     setIsTouched(false);
-    // dispatch(reset());
   };
 
   return {

@@ -3,7 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 export const pageSlice = createSlice({
   name: "page",
   initialState: {
-    totalAmount: 5,
     pageSize: 4,
     currentPage: 1,
     initialPage: 1,
@@ -21,9 +20,6 @@ export const pageSlice = createSlice({
     setPage(state, action) {
       state.currentPage = action.payload;
       state.activeNumber = action.payload;
-    },
-    setAmount(state, action) {
-      state.totalAmount = action.payload;
     },
   },
 });
