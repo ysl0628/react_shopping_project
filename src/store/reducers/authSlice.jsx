@@ -30,7 +30,8 @@ export const authSlice = createSlice({
       // 取得當前的時間戳
       const currentTime = Date.now();
       // 設置登錄的有效時間
-      const timeout = 1000 * 60 * 60;
+      const timeout = 1000 * 60 * 60 * 24 * 7;
+      // const timeout = 30000;
       // 設置失效日期
       state.expirationTime = currentTime + timeout;
 
